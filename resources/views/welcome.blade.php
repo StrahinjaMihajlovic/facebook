@@ -7,6 +7,9 @@
 Welcome
 @endsection
 
+<div class="modal fade" id='post_modal' tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+</div>
+
 @section('content')
     <div class="col-md-3">
         <div class="card">

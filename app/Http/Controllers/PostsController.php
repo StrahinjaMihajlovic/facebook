@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Models\Post;
 use App\Providers\RouteServiceProvider;
 use App\Services\PostService;
 use Illuminate\Http\Request;
@@ -21,5 +22,15 @@ class PostsController extends Controller
         $posts = $this->postService->getAllPosts();
         return \view()->make('posts/partial_render', compact('posts'));
     }
+
+    public function edit(Post $post){
+        return \view()->make('posts/partial_edit', compact('post'));
+    }
+
+    public function update(PostRequest $request, Post $post){
+        return $this->postService->update($request, $post);
+    }
+
+    
 
 }
