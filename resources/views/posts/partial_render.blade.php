@@ -64,3 +64,4 @@
         </div>
         <!-- Post /////-->
 @endforeach
+@yield('posts')
