@@ -18,6 +18,7 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => 'auth'], function () {
     // home page
     Route::resource('/', HomeController::class);
+    Route::resource('/post', PostsController::class);
 
     //
 });

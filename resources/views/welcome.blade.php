@@ -1,3 +1,5 @@
+
+
 @extends('layouts.template')
 
 @section('title')
@@ -129,7 +131,7 @@ Welcome
                         </div>
                         <div class="btn-toolbar justify-content-between">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-primary">share</button>
+                                <button type="submit" class="btn btn-primary" formaction="{{ route('post.store') }}" formmethod="post">share</button>
                             </div>
                             <div class="btn-group">
                                 <select class="form-control form-control-sm">
