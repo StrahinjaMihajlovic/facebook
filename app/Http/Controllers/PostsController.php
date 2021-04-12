@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
+use App\Providers\RouteServiceProvider;
 use App\Services\PostService;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,8 @@ class PostsController extends Controller
     }
 
     public function store(PostRequest $request){
-        dd('die');
-        $result = $this->postService->store($request);
-        return redirect()->route('home@index', ['result' => $result]);
+
+        return $this->postService->store($request);;
     }
 
 }

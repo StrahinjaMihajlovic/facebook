@@ -1,5 +1,5 @@
-
-
+<script src="{{ asset('js/jquery.js') }}"></script>
+<script src="{{ asset('js/posts.js') }}"></script>
 @extends('layouts.template')
 
 @section('title')
@@ -125,13 +125,17 @@ Welcome
                             <label class="sr-only" for="message">post</label>
                             <textarea class="form-control" id="message" rows="3" placeholder="What are you thinking?"></textarea>
                         </div>
+                        <div id="message_status" class="h5">
+
+                        </div>
                         <div class="custom-file" style="margin-bottom:1rem;">
                             <input type="file" class="custom-file-input" id="customFile">
                             <label class="custom-file-label" for="customFile">Upload image</label>
                         </div>
                         <div class="btn-toolbar justify-content-between">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-primary" formaction="{{ route('post.store') }}" formmethod="post">share</button>
+                                <button type="submit" class="btn btn-primary" onclick="storePost('{{ route('post.store') }}')")>share</button>
+                                @csrf
                             </div>
                             <div class="btn-group">
                                 <select class="form-control form-control-sm">

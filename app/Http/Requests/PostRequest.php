@@ -16,6 +16,12 @@ class PostRequest extends FormRequest
         return !\Auth::guest();
     }
 
+    public function attributes()
+    {
+        return [
+            'content' => 'message',
+        ];
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,7 +30,7 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'require'
+            'message' => 'required'
         ];
     }
 }
