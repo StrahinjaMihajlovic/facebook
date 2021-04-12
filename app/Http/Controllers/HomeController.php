@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PostService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view ('welcome');
+        $posts = $this->postService->getAllPosts();
+        return view ('welcome', compact('posts'));
     }
 
     /**

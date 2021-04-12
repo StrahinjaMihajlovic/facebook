@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Posts extends Model
+class Post extends Model
 {
     use HasFactory;
 
@@ -13,6 +13,6 @@ class Posts extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     function user() : \Illuminate\Database\Eloquent\Relations\BelongsTo{
-        return $this->belongsTo('users', 'id', 'user_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

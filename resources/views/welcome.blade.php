@@ -156,6 +156,7 @@ Welcome
         <!-- Post /////-->
 
         <!--- \\\\\\\Post-->
+        @foreach($posts as $post)
         <div class="card gedf-card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
@@ -164,8 +165,8 @@ Welcome
                             <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                         </div>
                         <div class="ml-2">
-                            <div class="h5 m-0">@LeeCross</div>
-                            <div class="h7 text-muted">Miracles Lee Cross</div>
+                            <div class="h5 m-0">@ {{ $post->user->name }}</div>
+                            <div class="h7 text-muted">{{ $post->user->name }}</div>
                         </div>
                     </div>
                     <div>
@@ -185,15 +186,13 @@ Welcome
             </div>
             <div class="card-body">
                 <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Hace 40 min</div>
-                <a class="card-link" href="#">
+                <!-- <a class="card-link" href="#">
                     <h5 class="card-title">Totam non adipisci hic! Possimus ducimus amet, dolores illo ipsum quos
                         cum.</h5>
-                </a>
+                </a> -->
 
                 <p class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam sunt fugit reprehenderit consectetur exercitationem odio,
-                    quam nobis? Officiis, similique, harum voluptate, facilis voluptas pariatur dolorum tempora sapiente
-                    eius maxime quaerat.
+                    {{ $post->content }}
                     <a href="https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU" target="_blank">https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU</a>
                 </p>
             </div>
@@ -222,7 +221,7 @@ Welcome
             </div>
         </div>
         <!-- Post /////-->
-
+        @endforeach
 
 
     </div>
