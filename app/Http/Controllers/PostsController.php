@@ -6,6 +6,7 @@ use App\Http\Requests\PostRequest;
 use App\Providers\RouteServiceProvider;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PostsController extends Controller
 {
@@ -16,8 +17,9 @@ class PostsController extends Controller
     }
 
     public function store(PostRequest $request){
-
-        return $this->postService->store($request);;
+        $result = $this->postService->store($request);
+        $posts = $this->postService->getAllPosts();
+        return \view()->make('posts/partial_render', compact('posts'));
     }
 
 }

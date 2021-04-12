@@ -161,6 +161,7 @@ Welcome
         </div>
         <!-- Post /////-->
 
+        <div id="post_wrap">
         <!--- \\\\\\\Post-->
         @foreach($posts as $post)
         <div class="card gedf-card">
@@ -228,7 +229,7 @@ Welcome
         </div>
         <!-- Post /////-->
         @endforeach
-
+        </div>
 
     </div>
     <div class="col-md-3">
