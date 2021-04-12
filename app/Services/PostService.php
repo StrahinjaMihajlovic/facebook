@@ -27,4 +27,8 @@ class PostService
         $post->content = $request->message;
         $post->update();
     }
+
+    public function destroy(Post $post){
+        $post->delete();
+    }
 }

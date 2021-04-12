@@ -31,11 +31,15 @@ function updatePost(url){
     });
 }
 
-function deletePost(url, post){
+function deletePost(url){
     const csrf = $("input:hidden[name='_token']").attr('value');
     $.ajax({
-        type: "DELETE",
+        type: "post",
         url: url,
-        data:{ post:post, _token : csrf}
+        data:{_token : csrf}
+    }).done(function(){
+        console.log('radi');
+    }).fail(function(){
+        console.log('radi');
     })
 }
