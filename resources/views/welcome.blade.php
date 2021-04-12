@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('title')
-Welcome
+    Welcome
 @endsection
 
 @section('content')
@@ -39,72 +39,58 @@ Welcome
         <div class="card gedf-card">
             <div class="card-body">
                 <div class="card-deck">
-                    <div class="card"  data-toggle="modal" data-target=".bd-example-modal-xl">
-                        <img class="card-img-top" src="https://cdn.worldvectorlogo.com/logos/story.svg" alt="Card image cap">
+                    <div class="card"  data-toggle="modal" data-target="#bd-example-modal-xl">
+                        <img class="card-img-top" src="" alt="Card image cap">
                         <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                            <small class="text-muted">marko</small>
                         </div>
                     </div>
-                    <div class="card" data-toggle="modal" data-target=".bd-example-modal-xl">
-                        <img class="card-img-top" src="https://cdn.worldvectorlogo.com/logos/story.svg" alt="Card image cap">
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
+                        <!-- Modal for story -->
+                        <div class="modal fade" id="bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+                                    <div class="card-body">
+                                        <div class="card-deck">
+                                            <div class="card">
+                                                <img src="https://cdn.worldvectorlogo.com/logos/story.svg" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <img src="https://cdn.worldvectorlogo.com/logos/story.svg" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                <img src="https://cdn.worldvectorlogo.com/logos/story.svg" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card" data-toggle="modal" data-target=".bd-example-modal-xl">
-                        <img class="card-img-top" src="https://cdn.worldvectorlogo.com/logos/story.svg" alt="Card image cap">
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </div>
-                    </div>
-                    <div class="card" data-toggle="modal" data-target=".bd-example-modal-xl">
-                        <img class="card-img-top" src="https://cdn.worldvectorlogo.com/logos/story.svg" alt="Card image cap">
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </div>
-                    </div>
-                    <div class="card" data-toggle="modal" data-target=".bd-example-modal-xl">
-                        <img class="card-img-top" src="https://cdn.worldvectorlogo.com/logos/story.svg" alt="Card image cap">
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </div>
-                    </div>
+                        <!-- End modal for story -->
                 </div>
             </div>
         </div>
-        <!-- Modal for story -->
-        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="card-body">
-                        <div class="card-deck">
-                            <div class="card">
-                                <img src="https://cdn.worldvectorlogo.com/logos/story.svg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <img src="https://cdn.worldvectorlogo.com/logos/story.svg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <img src="https://cdn.worldvectorlogo.com/logos/story.svg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End modal for story -->
         <!-- Post /////-->
 
         <!--- \\\\\\\Post-->
+        @if($errors->any())
+            <div class="alert alert-danger" role="alert">
+                {{ $errors->first() }}
+            </div>
+        @endif
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session()->get('success') }}
+            </div>
+        @endif
         <div class="card gedf-card">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
@@ -140,15 +126,18 @@ Welcome
                         </div>
                     </div>
                     <div class="tab-pane fade" id="story" role="tabpanel" aria-labelledby="posts-tab">
-                        <div class="custom-file" style="margin-bottom:1rem;">
-                            <input type="file" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Upload image</label>
-                        </div>
-                        <div class="btn-toolbar justify-content-between">
-                            <div class="btn-group">
-                                <button type="submit" class="btn btn-primary">share</button>
+                        <form action="{{  route('story.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="custom-file" style="margin-bottom:1rem;">
+                                <input type="file" class="custom-file-input" id="storyImage" name="storyImage">
+                                <label class="custom-file-label" for="customFile">Upload image</label>
                             </div>
-                        </div>
+                            <div class="btn-toolbar justify-content-between">
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-primary" >share</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
