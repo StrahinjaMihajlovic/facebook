@@ -31,14 +31,14 @@ function updatePost(url){
     });
 }
 
-function deletePost(url){
+function deletePost(currentElement,url){
     const csrf = $("input:hidden[name='_token']").attr('value');
     $.ajax({
-        type: "post",
+        type: "DELETE",
         url: url,
         data:{_token : csrf}
     }).done(function(){
-        console.log('radi');
+        $(currentElement).parentsUntil(".gedf-card", ).parent().remove();
     }).fail(function(){
         console.log('radi');
     })

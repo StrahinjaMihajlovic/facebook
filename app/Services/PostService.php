@@ -28,7 +28,10 @@ class PostService
         $post->update();
     }
 
+    /**
+     * @throws \Exception
+     */
     public function destroy(Post $post){
-        $post->delete();
+        return $post->delete();
     }
 }

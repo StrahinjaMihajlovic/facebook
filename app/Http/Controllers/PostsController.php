@@ -31,8 +31,11 @@ class PostsController extends Controller
         return $this->postService->update($request, $post);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function destroy(Post $post){
-        $this->postService->destroy($post);
+        return ($this->postService->destroy($post));
     }
 
 }
