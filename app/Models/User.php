@@ -40,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function firstStory()
+    {
+        return $this->hasOne(Story::class)->orderByDesc('created_at');
+    }
 }
