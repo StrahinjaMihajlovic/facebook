@@ -2,11 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\StoryRequest;
+use App\Models\Story;
 use Illuminate\Http\Request;
+use App\Services\StoryService;
 
-class HomeController extends Controller
+class StoryController extends Controller
 {
+    /**
+     * @var StoryService
+     */
+    private $storyService;
+
+    /**
+     * StoryController constructor.
+     * @param StoryService $storyService
+     */
+    public function __construct(StoryService $storyService)
+    {
+        $this->storyService = $storyService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $firstStory = User::with('firstStory')->has('firstStory')->get()->take(5)->sortByDesc('firstStory.id');
-
-        return view ('welcome',compact('firstStory'));
+        //
     }
 
     /**
@@ -35,18 +49,20 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoryRequest $request)
     {
-        //
+        $this->storyService->store($request->storyImage);
+
+        return back()->with('success','Success share story');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Story  $story
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Story $story)
     {
         //
     }
@@ -54,10 +70,10 @@ class HomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Story  $story
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Story $story)
     {
         //
     }
@@ -66,10 +82,10 @@ class HomeController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Story  $story
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Story $story)
     {
         //
     }
@@ -77,11 +93,13 @@ class HomeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Story  $story
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $this->storyService->destroy($id);
+
+        return back();
     }
 }

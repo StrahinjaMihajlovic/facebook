@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     // home page
     Route::resource('/', HomeController::class);
 
-    //
+    // route for users stories
+    Route::resource('story',StoryController::class);
+    Route::post('story/delete/{id}',[StoryController::class,'destroy'])->name('storyDelete');
 });
