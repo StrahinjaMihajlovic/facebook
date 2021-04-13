@@ -1,13 +1,32 @@
 
 function storePost(route) {
     const csrf = $("input:hidden[name='_token']").attr('value');
-
+    var form = new FormData();
     const val = $("#message").val();
+    form.append('message', val);
+    form.append('_token', csrf);
+    if($('#picture')[0].files[0]){
+        try {
+            form.append('picture', $('#picture')[0].files[0]) //for now only one image can be sent
+        }catch (e){
+            console.log(e.message);
+        }
+    }
 
-    $.post(route, {message: val, _token: csrf}, function (data) {
+    $.ajax({
+        type: 'POST',
+        url: route,
+        data: form,
+        processData: false,
+        contentType: false,
+
+
+    }).done(function(data){
         $('#post_wrap').html(data);
+    }).fail(function ( data , error){
 
     });
+
 }
 
 function editPost(route){

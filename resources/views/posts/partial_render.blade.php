@@ -35,8 +35,8 @@
 
                 <p class="card-text">
                     {{ $post->content }}
-                    <a href="https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU" target="_blank">https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU</a>
                 </p>
+            @if(isset($post->pictures)) <img src="{{ asset($post->pictures->file)}}" class="img-fluid" alt="Responsive image">@endif
             </div>
             <div class="card-footer">
                 <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>

@@ -37,7 +37,7 @@
 
             </textarea>
             <button type="submit" class="btn btn-primary" onclick="updatePost('{{ route('post.update', ['post' => $post]) }}')">Submit</button>
-
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
 
         @error('message')

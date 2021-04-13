@@ -15,4 +15,11 @@ class Post extends Model
     function user() : \Illuminate\Database\Eloquent\Relations\BelongsTo{
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pictures(){
+        return $this->hasOne(PostPictures::class, 'post_id', 'id');
+    }
 }

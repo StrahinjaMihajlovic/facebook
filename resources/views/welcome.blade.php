@@ -133,7 +133,7 @@ Welcome
 
                         </div>
                         <div class="custom-file" style="margin-bottom:1rem;">
-                            <input type="file" class="custom-file-input" id="customFile">
+                            <input type="file" name="picture" class="custom-file-input" id="picture" multiple accept="image/x-png, image/gif, image/jpeg, image/jpg">
                             <label class="custom-file-label" for="customFile">Upload image</label>
                         </div>
                         <div class="btn-toolbar justify-content-between">
@@ -151,7 +151,7 @@ Welcome
                     </div>
                     <div class="tab-pane fade" id="story" role="tabpanel" aria-labelledby="posts-tab">
                         <div class="custom-file" style="margin-bottom:1rem;">
-                            <input type="file" class="custom-file-input" id="customFile">
+                            <input type="file" class="custom-file-input" id="customFile" >
                             <label class="custom-file-label" for="customFile">Upload image</label>
                         </div>
                         <div class="btn-toolbar justify-content-between">

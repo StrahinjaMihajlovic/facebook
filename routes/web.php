@@ -21,5 +21,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/', HomeController::class);
     Route::resource('/post', PostsController::class);
 
+
     //
 });
+
+
