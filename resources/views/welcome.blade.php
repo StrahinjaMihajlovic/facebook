@@ -1,8 +1,13 @@
+
 @extends('layouts.template')
+
 
 @section('title')
     Welcome
 @endsection
+
+<div class="modal fade" id='post_modal' tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+</div>
 
 @section('content')
     <div class="col-md-3">
@@ -106,13 +111,17 @@
                             <label class="sr-only" for="message">post</label>
                             <textarea class="form-control" id="message" rows="3" placeholder="What are you thinking?"></textarea>
                         </div>
+                        <div id="message_status" class="h5">
+
+                        </div>
                         <div class="custom-file" style="margin-bottom:1rem;">
-                            <input type="file" class="custom-file-input" id="customFile">
+                            <input type="file" name="picture" class="custom-file-input" id="picture" multiple accept="image/x-png, image/gif, image/jpeg, image/jpg">
                             <label class="custom-file-label" for="customFile">Upload image</label>
                         </div>
                         <div class="btn-toolbar justify-content-between">
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-primary">share</button>
+                                <button type="submit" class="btn btn-primary" onclick="storePost('{{ route('post.store') }}')")>share</button>
+                                @csrf
                             </div>
                             <div class="btn-group">
                                 <select class="form-control form-control-sm">
@@ -123,6 +132,9 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="story" role="tabpanel" aria-labelledby="posts-tab">
+
+
+
                             @csrf
                             <div class="custom-file" style="margin-bottom:1rem;">
                                 <input type="file" class="custom-file-input" id="storyImage" name="storyImage">
@@ -132,6 +144,7 @@
                                 <div class="btn-group">
                                     <button type="submit" class="btn btn-primary"  onclick="storeStory('{{ route('story.store') }}')">share</button>
                                 </div>
+
                             </div>
                     </div>
                 </div>
@@ -139,75 +152,10 @@
         </div>
         <!-- Post /////-->
 
+        <div id="post_wrap">
         <!--- \\\\\\\Post-->
-        <div class="card gedf-card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="mr-2">
-                            <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
-                        </div>
-                        <div class="ml-2">
-                            <div class="h5 m-0">@LeeCross</div>
-                            <div class="h7 text-muted">Miracles Lee Cross</div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="dropdown">
-                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                <a class="dropdown-item" href="#">Pin</a>
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Delete</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card-body">
-                <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Hace 40 min</div>
-                <a class="card-link" href="#">
-                    <h5 class="card-title">Totam non adipisci hic! Possimus ducimus amet, dolores illo ipsum quos
-                        cum.</h5>
-                </a>
-
-                <p class="card-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam sunt fugit reprehenderit consectetur exercitationem odio,
-                    quam nobis? Officiis, similique, harum voluptate, facilis voluptas pariatur dolorum tempora sapiente
-                    eius maxime quaerat.
-                    <a href="https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU" target="_blank">https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU</a>
-                </p>
-            </div>
-            <div class="card-footer">
-                <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-                <a style="color:#007bff;cursor: pointer;" class="card-link"> <i class="fa fa-comment" onclick="showComments()" > Comment</i></a>
-                <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
-            </div>
-            <div id="comments" style="display: none;">
-                <div class="card-body">
-                    <div class="dropdown" style="float: right;">
-                        <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-h"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                            <a class="dropdown-item" href="#">Pin</a>
-                            <a class="dropdown-item" href="#">Edit</a>
-                            <a class="dropdown-item" href="#">Delete</a>
-                        </div>
-                    </div>
-                    <p class="card-text">
-                        <img style="float:left;padding-right: 4px;" class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt=""> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam sunt fugit reprehenderit consectetur exercitationem odio.
-                        <span style="color: #6c757d!important;font-size: 0.8rem;">About 3 minutes</span>
-                    </p>
-                </div>
-            </div>
+            @include('posts/partial_render');
         </div>
-        <!-- Post /////-->
-
-
 
     </div>
     <div class="col-md-3">
@@ -227,4 +175,6 @@
 @section('js')
     @parent
     <script src="{{ asset('js/story.js') }}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/posts.js') }}"></script>
 @endsection

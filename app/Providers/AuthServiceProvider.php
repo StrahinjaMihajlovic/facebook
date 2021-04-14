@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+
+use App\Models\Post;
+
 use App\Models\Story;
+
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -27,8 +31,17 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+
+        Gate::define('edit_post', function(User $user, Post $post){
+            return $user->id === $post->user_id;
+        });
+        Gate::define('delete_post', function (User $user, Post $post) {
+            return $user->id === $post->user_id;
+        });
+
         Gate::define('delete-story',function(User $user, Story $story){
             return $user->id === $story->user_id;
         });
     }
+
 }
