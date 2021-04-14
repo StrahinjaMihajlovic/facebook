@@ -45,4 +45,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(Story::class)->orderByDesc('created_at');
     }
+
+    public function likes(){
+        return $this->hasMany(Like::class, 'user_id', 'id');
+    }
 }
