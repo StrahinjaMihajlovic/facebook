@@ -25,7 +25,7 @@ class FriendRequestController extends Controller
 
     public function home()
     {
-        $notifications = FriendRequest::get();
+        $notifications = FriendRequest::where('receive_id',Auth()->user()->id)->get();
         return view('notification',compact('notifications'));
     }
 
@@ -47,6 +47,13 @@ class FriendRequestController extends Controller
     public function unsend ($id)
     {
         $this->friendRequestService->unsend($id);
+
+        return back();
+    }
+
+    public function accept($id)
+    {
+        $this->friendRequestService->accept($id);
 
         return back();
     }

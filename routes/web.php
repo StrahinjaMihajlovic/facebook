@@ -29,4 +29,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('notification',[FriendRequestController::class,'home'])->name('notification');
     Route::post('send/{id}', [FriendRequestController::class,'send'])->name("send");
     Route::post('unsend/{id}', [FriendRequestController::class,'unsend'])->name("unsend");
+    //route for accept request
+    Route::post('notification/accept/{id}',[FriendRequestController::class,'accept'])->name('accept');
 });
