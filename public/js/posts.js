@@ -45,9 +45,10 @@ function updatePost(url){
 
     }).done(function(){
         $('#edit_message').parent().after('<p>Successfuly updated</p>');
-    }).fail(function(){
-        $('#edit_message').parent().after('<p>fail</p>');
-    });
+    }).fail(function(xhr){
+            $('#edit_message').parent().after('<p>' + errorDisplay(xhr) +'</p>');
+        });
+
 }
 
 function deletePost(currentElement,url){
@@ -58,7 +59,13 @@ function deletePost(currentElement,url){
         data:{_token : csrf}
     }).done(function(){
         $(currentElement).parentsUntil(".gedf-card", ).parent().remove();
-    }).fail(function(){
-        console.log('radi');
+    }).fail(function(xhr){
+        $(currentElement).parentsUntil(".gedf-card", ).parent().append('p').addClass('alert-danger').text(errorDisplay(xhr));
     })
+}
+
+function errorDisplay(xhr){
+    if(xhr.status === 403){
+        return 'You are not allowed to do that!';
+    }
 }

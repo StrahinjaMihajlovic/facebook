@@ -16,8 +16,9 @@
                             <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
+                            
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                <a class="dropdown-item" href="#">Pin</a>
+
                                 <a class="dropdown-item" data-toggle="modal" data-target="#post_modal"  onclick="editPost('{{ route('post.edit', ['post' => $post->id]) }}')" >Edit</a>
                                 <a class="dropdown-item" onclick="deletePost(this ,'{{ route('post.destroy', ['post' => $post])}} ')">Delete</a>
                             </div>
@@ -25,6 +26,9 @@
                     </div>
                 </div>
 
+
+                </div>
+                 <div class="error-show">
             </div>
             <div class="card-body">
                 <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Hace 40 min</div>

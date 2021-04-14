@@ -46,7 +46,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post){
 
-        if (! Gate::allows('edit_post', $post)) {
+        if ( !Gate::allows('edit_post', $post)) {
             abort(403);
         }
 
@@ -59,7 +59,7 @@ class PostsController extends Controller
      * @param Post $post
      */
     public function update(PostRequest $request, Post $post){
-        if (! Gate::allows('edit_post', $post)) {
+        if ( !Gate::allows('edit_post', $post)) {
             abort(403);
         }
 
@@ -70,6 +70,9 @@ class PostsController extends Controller
      * @throws \Exception
      */
     public function destroy(Post $post){
+        if ( !Gate::allows('delete_post', $post)) {
+            abort(403, 'You are not allowed to delete this post');
+        }
         return ($this->postService->destroy($post));
     }
 
