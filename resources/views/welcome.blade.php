@@ -5,38 +5,6 @@
 @endsection
 
 @section('content')
-    <div class="col-md-3">
-        <div class="alert alert-success" role="alert" id="success" style="display: none;">
-
-        </div>
-        <div class="card">
-            <p id="success" class="mt-3" style="color:green;display: none;"></p>
-            <div class="card-body">
-                <div class="h5">
-                    <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt=""> LeeCross
-                </div>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="h6 text-muted">Friends</div>
-                    <div class="h5">20</div>
-                </li>
-                <li class="list-group-item">
-                    <div class="h6 text-muted">Posts</div>
-                    <div class="h5">20</div>
-                </li>
-                <li class="list-group-item"><a href="{{ asset('/') }}">Home</a></li>
-                <li class="list-group-item"><a href="">Messages</a></li>
-                <li class="list-group-item"><a href="">Profile</a></li>
-                <li class="list-group-item">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"> Logout</a>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </div>
     <div class="col-md-6 gedf-main">
         <!--- \\\\\\\Post-->
         <div class="card gedf-card">
@@ -206,18 +174,20 @@
             </div>
         </div>
         <!-- Post /////-->
-
-
-
     </div>
     <div class="col-md-3">
         <div class="card gedf-card">
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <div class="h6 text-muted">Active friends</div>
-                    <li class="list-group-item"><a href=""><img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt=""> LeeCross</a></li>
-                    <li class="list-group-item"><a href=""><img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt=""> LeeCross</a></li>
-                    <li class="list-group-item"><a href=""><img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt=""> LeeCross</a> </li>
+                    <div class="h6 text-muted">Users</div>
+                    @foreach($users as $user)
+                        <li class="list-group-item"><a href=""><img class="rounded-circle" width="45" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt=""> <span>{{ $user->name }}</span> </a>
+                        <form style="float: right;padding: 8px;" action=@if($user->ifSendRequest) "{{ route('unsend',['id'=>$user->id]) }}" @else {{ route('send',['id'=>$user->id]) }} @endif method="POST">
+                            @csrf
+                            <button style="border: none;background: #007bff;color: white;">@if($user->ifSendRequest)Unsend request @else Send request @endif</button>
+                        </form>
+                        </li>
+                    @endforeach
                 </ul>
                 </ul>
             </div>

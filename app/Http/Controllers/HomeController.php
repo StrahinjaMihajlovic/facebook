@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -15,8 +16,9 @@ class HomeController extends Controller
     public function index()
     {
         $firstStory = User::with('firstStory')->has('firstStory')->get()->take(5)->sortByDesc('firstStory.id');
+        $users = User::get()->whereNotIn('id',Auth()->user()->id);
 
-        return view ('welcome',compact('firstStory'));
+        return view ('welcome',compact('firstStory','users'));
     }
 
     /**
