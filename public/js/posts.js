@@ -20,7 +20,6 @@ function storePost(route) {
         processData: false,
         contentType: false,
 
-
     }).done(function(data){
         $('#post_wrap').html(data);
     }).fail(function ( data , error){
@@ -36,17 +35,32 @@ function editPost(route){
 }
 
 function updatePost(url){
-    const post = $("#edit_message").val();
+    var form = new FormData();
     const csrf = $("input:hidden[name='_token']").attr('value');
+    const message =  $("#edit_message").val();
+    form.append('_token', csrf);
+    form.append('message', message);
+
+    if($('#editImage')[0].files[0]) {
+        form.append('picture', $('#editImage')[0].files[0]);
+    }
+
+    form.append('_method', 'patch');
     $.ajax({
-        type: 'PATCH',
+        type: 'POST',
         url: url,
-        data: {message: post, _token : csrf}
+        data: form,
+        contentType: false,
+        processData: false,
 
     }).done(function(){
         $('#edit_message').parent().after('<p>Successfuly updated</p>');
+        window.setTimeout(function(){
+            location.reload();
+        }, 1000);
+
     }).fail(function(xhr){
-            $('#edit_message').parent().after('<p>' + errorDisplay(xhr) +'</p>');
+            console.log(xhr.status);
         });
 
 }

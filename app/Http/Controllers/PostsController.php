@@ -58,10 +58,12 @@ class PostsController extends Controller
      * @param PostRequest $request
      * @param Post $post
      */
-    public function update(PostRequest $request, Post $post){
+    public function update(PostRequest $request, PictureRequest $picRequest, Post $post){
+
         if ( !Gate::allows('edit_post', $post)) {
             abort(403);
         }
+        $this->pictureService->update($picRequest, $post);
 
         return $this->postService->update($request, $post);
     }

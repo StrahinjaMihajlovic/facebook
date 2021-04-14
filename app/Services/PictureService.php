@@ -30,11 +30,27 @@ class PictureService
 
             $picture->file = str_replace('images//posts//', '', $location);
             $picture->post_id = $post->id;
-            return $picture->save();
+
+            return  $picture->save();;
 
         }
         else{
             return false;
         }
+    }
+
+    public function update(PictureRequest $request, Post $post){
+
+        if(!$request->picture){
+            return false;
+        }
+
+        if(isset($post->pictures)){
+            $post->pictures->delete();
+            Storage::disk('images')->delete($post->pictures->file);
+        }
+
+
+        return $this->store($request, $post);
     }
 }

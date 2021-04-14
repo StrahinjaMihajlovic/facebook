@@ -18,24 +18,33 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
 
-                            <a class="dropdown-item" href="#">Delete</a>
                         </div>
                     </div>
                 </div>
             </div>
 
         </div>
-        <div class="card-body">
-            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Hace 40 min</div>
-            <!-- <a class="card-link" href="#">
-                <h5 class="card-title">Totam non adipisci hic! Possimus ducimus amet, dolores illo ipsum quos
-                    cum.</h5>
-            </a> -->
+        <div class="card-body container">
+            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> Posted at: {{ date('d.M.Y H:m', strtotime( $post->created_at ))}}</div>
+            <div class="row">
 
-            <textarea class="card-text" id="edit_message">
-                {{ $post->content }}
+                <!-- <a class="card-link" href="#">
+                    <h5 class="card-title">Totam non adipisci hic! Possimus ducimus amet, dolores illo ipsum quos
+                        cum.</h5>
+                </a> -->
+                <div class="col-4">
+                    <textarea class="card-text display-inline" id="edit_message">
+                        {{ $post->content }}
 
-            </textarea>
+                    </textarea>
+                </div>
+                <div class="col">
+                    <h3>Change the current image</h3>
+                    <input type="file" class="custom-file" id="editImage">
+                    @if(isset($post->pictures->file)) <img src="{{ asset($post->pictures->file) }}" class="img-fluid">@endif
+                </div>
+            </div>
+            @csrf
             <button type="submit" class="btn btn-primary" onclick="updatePost('{{ route('post.update', ['post' => $post]) }}')">Submit</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
