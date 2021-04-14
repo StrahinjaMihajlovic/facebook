@@ -2,21 +2,31 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Services\PostService;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function __construct(PostService $postService)
+    {
+        $this->postService = $postService;
+    }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
+
+        $posts = $this->postService->getAllPosts();
+
         $firstStory = User::with('firstStory')->has('firstStory')->get()->take(5)->sortByDesc('firstStory.id');
 
-        return view ('welcome',compact('firstStory'));
+        return view ('welcome',compact('firstStory', 'posts'));
+
     }
 
     /**
