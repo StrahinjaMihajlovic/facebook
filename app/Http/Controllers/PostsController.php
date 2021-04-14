@@ -72,6 +72,7 @@ class PostsController extends Controller
      * @throws \Exception
      */
     public function destroy(Post $post){
+
         if ( !Gate::allows('delete_post', $post)) {
             abort(403, 'You are not allowed to delete this post');
         }

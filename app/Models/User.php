@@ -41,7 +41,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     public function posts(){
         return $this->hasMany(Post::class, 'id', 'user_id');
+    }
+
+    public function firstStory()
+    {
+        return $this->hasOne(Story::class)->orderByDesc('created_at');
+
     }
 }

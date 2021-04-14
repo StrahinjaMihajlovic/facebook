@@ -11,6 +11,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     @show
 </head>
 
@@ -67,17 +68,19 @@
         @yield('content')
     </div>
 </div>
-<script>
-    function showComments()
-    {
-        var div = document.getElementById('comments');
-        if (div.style.display !== 'none') {
-            div.style.display = 'none';
+@section('js')
+    <script>
+        function showComments()
+        {
+            var div = document.getElementById('comments');
+            if (div.style.display !== 'none') {
+                div.style.display = 'none';
+            }
+            else {
+                div.style.display = 'block';
+            }
         }
-        else {
-            div.style.display = 'block';
-        }
-    }
-</script>
+    </script>
+    @show
 </body>
 </html>
