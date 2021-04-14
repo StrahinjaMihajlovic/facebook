@@ -6,6 +6,7 @@ use App\Http\Requests\StoryRequest;
 use App\Models\Story;
 use Illuminate\Http\Request;
 use App\Services\StoryService;
+use Illuminate\Support\Facades\Gate;
 
 class StoryController extends Controller
 {
@@ -98,6 +99,9 @@ class StoryController extends Controller
      */
     public function destroy($id)
     {
+        $story = Story::find($id);
+        Gate::authorize('delete-story', $story);
+
         $this->storyService->destroy($id);
 
         return back();
