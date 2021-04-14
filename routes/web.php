@@ -23,4 +23,5 @@ Route::group(['middleware' => 'auth'], function () {
     // route for users stories
     Route::resource('story',StoryController::class);
     Route::post('story/delete/{id}',[StoryController::class,'destroy'])->name('storyDelete');
+    Route::resource('like', \App\Http\Controllers\LikeController::class);
 });
