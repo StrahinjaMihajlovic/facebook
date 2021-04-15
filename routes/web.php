@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\FriendRequestController;
+use App\Http\Controllers\MesssageController;
 
 
 /*
@@ -40,6 +41,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('notification/accept/{id}',[FriendRequestController::class,'accept'])->name('accept');
     //route for delete friend
     Route::post('friend/delete/{id}',[FriendRequestController::class,'destroy'])->name('friend.destroy');
+
+    //route for messagin system
+    Route::resource('/message',MesssageController::class);
 });
 
 

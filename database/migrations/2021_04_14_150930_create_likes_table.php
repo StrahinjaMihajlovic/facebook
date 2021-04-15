@@ -1,4 +1,5 @@
-<?php
+<?php            $table->foreignId('post_id')->references('id')->on('posts')->onDelete('cascade');
+
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
