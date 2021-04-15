@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -15,6 +16,20 @@ class Post extends Model
     function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    /** returns all the comments on the post
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments(){
+        return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
+
+    /** Returns all the comments the user has leaved on this post
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function isCommentedByTheUser(){
+        return $this->hasOne(Comment::class, 'post_id', 'id')->where('user_id', Auth()->user()->id);
     }
 
     /**
