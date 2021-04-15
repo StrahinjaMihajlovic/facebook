@@ -45,17 +45,31 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
+    public function posts(){
+        return $this->hasMany(Post::class, 'id', 'user_id');
+    }
+
     public function firstStory()
     {
         return $this->hasOne(Story::class)->orderByDesc('created_at');
+
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return mixed
+     */
     public function ifSendRequest()
     {
         return $this->hasOne(FriendRequest::class,'receive_id')->where('send_id',Auth()->user()->id);
+
     }
 
     /**

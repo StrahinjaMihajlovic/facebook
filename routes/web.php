@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\FriendRequestController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +23,15 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => 'auth'], function () {
     // home page
     Route::resource('/', HomeController::class);
+    Route::resource('/post', PostsController::class);
+
 
     // route for users stories
     Route::resource('story',StoryController::class);
     Route::post('story/delete/{id}',[StoryController::class,'destroy'])->name('storyDelete');
+
+    // routes for likes and dislikes
+    Route::resource('like', \App\Http\Controllers\LikeController::class);
 
     //View for notification and route for send/unsend friend request
     Route::get('notification',[FriendRequestController::class,'home'])->name('notification');
@@ -33,3 +41,5 @@ Route::group(['middleware' => 'auth'], function () {
     //route for delete friend
     Route::post('friend/delete/{id}',[FriendRequestController::class,'destroy'])->name('friend.destroy');
 });
+
+
