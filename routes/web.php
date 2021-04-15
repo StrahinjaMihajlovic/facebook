@@ -31,4 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('unsend/{id}', [FriendRequestController::class,'unsend'])->name("unsend");
     //route for accept request
     Route::post('notification/accept/{id}',[FriendRequestController::class,'accept'])->name('accept');
+    //route for delete friend
+    Route::post('friend/delete/{id}',[FriendRequestController::class,'destroy'])->name('friend.destroy');
 });

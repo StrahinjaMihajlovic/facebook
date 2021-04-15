@@ -37,4 +37,12 @@ class FriendRequestService
     {
         FriendRequest::where('send_id',(integer)$id)->where('receive_id',Auth()->user()->id)->update(['accept'=>1]);
     }
+
+    /**
+     * @param $id
+     */
+    public function destroy($id)
+    {
+        FriendRequest::where('id',$id)->delete();
+    }
 }

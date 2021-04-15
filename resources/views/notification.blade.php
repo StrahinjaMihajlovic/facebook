@@ -17,7 +17,7 @@
                     @foreach($notifications as $notification)
                         <li class="list-group-item">
                             <a href="{{ asset('/') }}">{{ $notification->user->name }}</a> send you request
-                            <form  action="{{ route('accept',['id'=>$notification->user->id]) }}" method="POST" style="float:right;">
+                            <form  @if($notification->accept == 1) action="{{ route('friend.destroy',['id'=>$notification->id ]) }}" @else action="{{ route('accept',['id'=>$notification->user->id]) }}" @endif method="POST" style="float:right;">
                                 @csrf
                                 <button style="border: none;background: #007bff;color: white;">@if($notification->accept == 1) Delete friend @else Accept friend @endif</button>
                             </form>

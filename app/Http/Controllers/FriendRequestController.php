@@ -51,9 +51,20 @@ class FriendRequestController extends Controller
         return back();
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function accept($id)
     {
         $this->friendRequestService->accept($id);
+
+        return back();
+    }
+
+    public function destroy($id)
+    {
+        $this->friendRequestService->destroy($id);
 
         return back();
     }

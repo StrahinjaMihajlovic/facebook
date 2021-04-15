@@ -67,6 +67,6 @@ class User extends Authenticatable
     }
     public function  friend()
     {
-        return $this->hasOne(FriendRequest::class,'send_id')->where('receive_id',Auth()->user()->id)->where('accept',1);
+        return $this->hasOne(FriendRequest::class,'send_id')->where('receive_id',Auth()->user()->id)->orWhere('send_id',Auth()->user()->id)->where('accept',1);
     }
 }
