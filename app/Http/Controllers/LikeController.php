@@ -22,9 +22,9 @@ class LikeController extends Controller
      */
     public function store(LikeRequest $request){
         if(Like::where(['post_id' => $request->post, 'user_id' => Auth::user()->id])->exists()){
-            return $this->likeService->dislike($request);
+            return  $this->likeService->jsonifyResponse($request, $this->likeService->dislike($request));
         }
 
-        return $this->likeService->like($request);
+        return  $this->likeService->jsonifyResponse($request, $this->likeService->like($request));
     }
 }
