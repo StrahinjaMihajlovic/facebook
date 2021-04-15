@@ -92,6 +92,31 @@ function likePost(currObject, post){
     })
 }
 
+function showComments(currObject, post){
+
+    $.ajax({
+        type:"GET",
+        url: 'post/'+post+'/comments',
+    }).done(function(data){
+        $(currObject).parent().next().html(data ? data:'No comments' + data);
+        $(currObject).parent().next().css('display', 'block');
+    })
+}
+
+function postComment(currObject, post){
+    const csrf = $("input:hidden[name='_token']").attr('value');
+    const content = $(currObject).prev().val();
+    console.log(content);
+    $.ajax({
+        type:'POST',
+        url: 'post/'+post+'/comments',
+        data:{content:content, _token:csrf}
+    }).done(function(data){
+        showComments($(currObject).parent().prev().children('a').first(), post);
+    });
+}
+
+
 function errorDisplay(xhr){
     if(xhr.status === 403){
         return 'You are not allowed to do that!';

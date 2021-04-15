@@ -45,7 +45,7 @@
             <div class="card-footer">
                 <a onclick='likePost(this, {{ $post->id }})'class="card-link"> <i class="fa fa-gittip"></i>
                     <p style="display:inline-block">@if($post->isLiked) Dislike @else Like @endif</p></a>
-                <a style="color:#007bff;cursor: pointer;" class="card-link"> <i class="fa fa-comment" onclick="showComments()" > Comment</i></a>
+                <a style="color:#007bff;cursor: pointer;" class="card-link" onclick="showComments(this, {{ $post->id }})"> <i class="fa fa-comment"  > Comment</i></a>
                 <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
             </div>
             <div id="comments" style="display: none;">
