@@ -43,7 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('friend/delete/{id}',[FriendRequestController::class,'destroy'])->name('friend.destroy');
 
     //route for messagin system
-    Route::resource('/message',MesssageController::class);
+    Route::get('message',[MesssageController::class,'index'])->name('message.index');
+    Route::get('message/{id}',[MesssageController::class,'show'])->name('message.show');
 });
 
 

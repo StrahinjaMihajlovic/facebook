@@ -95,4 +95,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(FriendRequest::class,'send_id')->where('receive_id',Auth()->user()->id)->where('accept',1);
     }
+
+    public function lastConversation()
+    {
+        return $this->hasOne(Conversation::class,'recipient_id')->where('sender_id',Auth()->user()->id);
+    }
+    public function conversation()
+    {
+        return $this->hasOne(Conversation::class,'recipient_id')->where('sender_id',Auth()->user()->id);
+    }
 }
