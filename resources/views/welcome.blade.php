@@ -19,7 +19,7 @@
                     @foreach($firstStory as $fStory)
                     <div class="card">
                         @if($fStory->firstStory->user_id == Auth()->user()->id)
-                        <button clas="del" style="position: absolute;border: none;background: none;" onclick="deletePost('{{ route('storyDelete', ['id' => $fStory->firstStory->id])}} ')">
+                        <button clas="del" style="position: absolute;border: none;background: none;" onclick="deleteStory('{{ route('storyDelete', ['id' => $fStory->firstStory->id])}} ')">
                             <i style="color:red;" class="fas fa-trash"></i>
                         </button>
                         @endif
