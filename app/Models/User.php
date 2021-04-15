@@ -53,8 +53,14 @@ class User extends Authenticatable
 
     }
 
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'user_id', 'id');
+    }
     public function ifSendRequest()
     {
         return $this->hasOne(FriendRequest::class,'receive_id')->where('send_id',Auth()->user()->id);
+
     }
 }

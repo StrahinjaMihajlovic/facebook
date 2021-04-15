@@ -30,6 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('story',StoryController::class);
     Route::post('story/delete/{id}',[StoryController::class,'destroy'])->name('storyDelete');
 
+    // routes for likes and dislikes
+    Route::resource('like', \App\Http\Controllers\LikeController::class);
+
     //View for notification and route for send/unsend friend request
     Route::get('notification',[FriendRequestController::class,'home'])->name('notification');
     Route::post('send/{id}', [FriendRequestController::class,'send'])->name("send");

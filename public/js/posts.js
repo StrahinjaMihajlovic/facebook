@@ -78,6 +78,20 @@ function deletePost(currentElement,url){
     })
 }
 
+function likePost(currObject, post){
+    const url = 'like';
+    const csrf = $("input:hidden[name='_token']").attr('value');
+    $.ajax({
+        type: "POST",
+        url: url,
+        data:{_token : csrf, post: post}
+    }).done(function(){
+        var text = $(currObject).children('p');
+        console.log($(text).text());
+        $(text).text($.trim($(text).text()) === 'Like' ? 'Dislike': 'Like');
+    })
+}
+
 function errorDisplay(xhr){
     if(xhr.status === 403){
         return 'You are not allowed to do that!';
