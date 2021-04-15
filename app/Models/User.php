@@ -46,7 +46,7 @@ class User extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function posts(){
-        return $this->hasMany(Post::class, 'id', 'user_id');
+        return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
     public function firstStory()
