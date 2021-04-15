@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFriendRequestsTable extends Migration
+class CreateFriendRequests extends Migration
 {
     /**
      * Run the migrations.
@@ -17,6 +17,7 @@ class CreateFriendRequestsTable extends Migration
             $table->id();
             $table->foreignId('send_id');
             $table->foreignId('receive_id');
+            $table->integer('accept');
             $table->dateTime('created_at');
             $table->foreign('send_id')->references('id')->on('users');
             $table->foreign('receive_id')->references('id')->on('users');

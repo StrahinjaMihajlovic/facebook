@@ -33,7 +33,14 @@ class LikeService
             $like->post_id = $request->post;
 
             return $like->save();
+    }
 
-
+    /** creates the json response for front - end like/dislike implementation
+     * @param LikeRequest $request
+     * @param bool $result
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function jsonifyResponse(LikeRequest $request, bool $result){
+        return response()->json(['likes_count' => count(Post::find($request->post())->first()->likes), 'result' => $result]);
     }
 }

@@ -1,4 +1,4 @@
-function deletePost(url){
+function deleteStory(url){
     const csrf = $("input:hidden[name='_token']").attr('value');
     $.ajax({
         method: "POST",
