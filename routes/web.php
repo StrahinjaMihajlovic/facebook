@@ -35,8 +35,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     //View for notification and route for send/unsend friend request
     Route::get('notification',[FriendRequestController::class,'home'])->name('notification');
-    Route::post('send/{id}', [FriendRequestController::class,'send'])->name("send");
-    Route::post('unsend/{id}', [FriendRequestController::class,'unsend'])->name("unsend");
+    Route::post('request/{id}', [FriendRequestController::class,'request'])->name("request");
+    //route for accept request
+    Route::post('notification/accept/{id}',[FriendRequestController::class,'accept'])->name('accept');
+    //route for delete friend
+    Route::post('friend/delete/{id}',[FriendRequestController::class,'destroy'])->name('friend.destroy');
 });
 
 

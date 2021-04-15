@@ -7,6 +7,9 @@ use File;
 
 class StoryService
 {
+    /**
+     * @param $storyImage
+     */
     public function store($storyImage)
     {
         $story = new Story();
@@ -20,6 +23,17 @@ class StoryService
         $story->save();
     }
 
+    /**
+     * @param $id
+     */
+    public function accept($id)
+    {
+        FriendRequest::where('send_id',(integer)$id)->where('receive_id',Auth()->user()->id)->update(['accept'=>1]);
+    }
+
+    /**
+     * @param $id
+     */
     public function destroy($id)
     {
         $story = Story::find($id);

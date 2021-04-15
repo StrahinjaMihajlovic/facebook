@@ -42,7 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function posts(){
         return $this->hasMany(Post::class, 'id', 'user_id');
     }
@@ -53,14 +55,44 @@ class User extends Authenticatable
 
     }
 
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function likes()
     {
         return $this->hasMany(Like::class, 'user_id', 'id');
     }
+
+    /**
+     * @return mixed
+     */
     public function ifSendRequest()
     {
         return $this->hasOne(FriendRequest::class,'receive_id')->where('send_id',Auth()->user()->id);
 
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ifReceiveRequest()
+    {
+        return $this->hasOne(FriendRequest::class,'send_id')->where('receive_id',Auth()->user()->id);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function  ifAuthRequestAccept()
+    {
+        return $this->hasOne(FriendRequest::class,'receive_id')->where('send_id',Auth()->user()->id)->where('accept',1);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function  ifFriendRequestAccept()
+    {
+        return $this->hasOne(FriendRequest::class,'send_id')->where('receive_id',Auth()->user()->id)->where('accept',1);
     }
 }
