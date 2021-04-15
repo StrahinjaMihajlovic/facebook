@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FriendRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -17,8 +19,9 @@ class HomeController extends Controller
     {
         $firstStory = User::with('firstStory')->has('firstStory')->get()->take(5)->sortByDesc('firstStory.id');
         $users = User::get()->whereNotIn('id',Auth()->user()->id);
+        $notifications = FriendRequest::where('receive_id',Auth()->user()->id)->where('accept',0)->count();
 
-        return view ('welcome',compact('firstStory','users'));
+        return view ('welcome',compact('firstStory','users','notifications'));
     }
 
     /**

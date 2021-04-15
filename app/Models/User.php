@@ -42,13 +42,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function firstStory()
     {
         return $this->hasOne(Story::class)->orderByDesc('created_at');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function ifSendRequest()
     {
         return $this->hasOne(FriendRequest::class,'receive_id')->where('send_id',Auth()->user()->id);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ifReceiveRequest()
+    {
+        return $this->hasOne(FriendRequest::class,'send_id')->where('receive_id',Auth()->user()->id);
+    }
+    public function  friend()
+    {
+        return $this->hasOne(FriendRequest::class,'send_id')->where('receive_id',Auth()->user()->id)->where('accept',1);
     }
 }

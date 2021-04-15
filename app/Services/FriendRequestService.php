@@ -16,6 +16,7 @@ class FriendRequestService
         $request = new FriendRequest();
         $request->send_id = Auth()->user()->id;
         $request->receive_id = $id;
+        $request->accept = 0;
         $request->created_at = date('Y-m-d H:i:s');
 
         $request->save();
@@ -34,14 +35,6 @@ class FriendRequestService
      */
     public function accept($id)
     {
-        $accept = new Friend();
-        $accept->auth_id = Auth()->user()->id;
-        $accept->friend_id = $id;
-        $accept->created_at = date('Y-m-d H:i:s');
-
-        $accept->save();
-
-        //delete record from table friend request
-        FriendRequest::where('receive_id', Auth()->user()->id)->where('send_id', $id)->delete();
+        FriendRequest::where('send_id',(integer)$id)->where('receive_id',Auth()->user()->id)->update(['accept'=>1]);
     }
 }
