@@ -85,9 +85,10 @@ function likePost(currObject, post){
         type: "POST",
         url: url,
         data:{_token : csrf, post: post}
-    }).done(function(){
-        var text = $(currObject).children('p');
-        console.log($(text).text());
+    }).done(function( data ){
+
+        $(currObject).children('p.count').text(data.likes_count);
+        var text = $(currObject).children('p.action');
         $(text).text($.trim($(text).text()) === 'Like' ? 'Dislike': 'Like');
     })
 }
