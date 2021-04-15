@@ -43,7 +43,8 @@
             @if(isset($post->pictures)) <img src="{{ asset($post->pictures->file)}}" class="img-fluid" alt="Responsive image">@endif
             </div>
             <div class="card-footer">
-                <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                <a onclick='likePost(this, {{ $post->id }})'class="card-link"> <i class="fa fa-gittip"></i>
+                    <p style="display:inline-block">@if($post->isLiked) Dislike @else Like @endif</p></a>
                 <a style="color:#007bff;cursor: pointer;" class="card-link"> <i class="fa fa-comment" onclick="showComments()" > Comment</i></a>
                 <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
             </div>
