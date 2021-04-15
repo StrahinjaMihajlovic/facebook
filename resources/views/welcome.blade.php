@@ -180,17 +180,15 @@
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <div class="h6 text-muted">Notification</div>
+                    <li class="list-group-item">
+                        You have {{ $notifications }} friend request
+                    </li>
                     @foreach($users as $user)
-                        <li class="list-group-item">
-                            You have {{ $notifications }} friend request
-                        </li>
                         <li class="list-group-item"><a href=""><img class="rounded-circle" width="45" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt=""> <span>{{ $user->name }}</span> </a>
-                            @if($user->friend) @else
-                        <form style="float: right;padding: 8px;" action=@if($user->ifSendRequest) "{{ route('unsend',['id'=>$user->id]) }}" @elseif($user->ifReceiveRequest) {{ route('accept',['id'=>$user->id]) }}" @else {{ route('send',['id'=>$user->id]) }} @endif method="POST">
+                        <form style="float: right;padding: 8px;" action="{{ route('request',['id'=>$user->id]) }}" method="POST">
                             @csrf
-                            <button style="border: none;background: #007bff;color: white;">@if($user->ifSendRequest)Unsend request @elseif($user->ifReceiveRequest) Accept friend @else Send request @endif</button>
+                            <button style="border: none;background: #007bff;color: white;">@if($user->ifFriendRequestAccept || $user->ifAuthRequestAccept) Friend @elseif($user->ifSendRequest) Unsend request @elseif($user->ifReceiveRequest) Accept friend @else Send request @endif</button>
                         </form>
-                            @endif
                         </li>
                     @endforeach
                 </ul>

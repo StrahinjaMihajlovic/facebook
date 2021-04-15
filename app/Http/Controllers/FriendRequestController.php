@@ -33,35 +33,25 @@ class FriendRequestController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function send ($id)
+    public function request ($id)
     {
-        $this->friendRequestService->send($id);
+       $user = User::find($id);
 
-        return back();
+        if($user->ifReceiveRequest) {
+            $this->friendRequestService->accept($id);
+        } elseif($user->ifSendRequest) {
+           $this->friendRequestService->unsend($id);
+       } else{
+           $this->friendRequestService->send($id);
+       }
+
+       return back();
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function unsend ($id)
-    {
-        $this->friendRequestService->unsend($id);
-
-        return back();
-    }
-
-    /**
-     * @param $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function accept($id)
-    {
-        $this->friendRequestService->accept($id);
-
-        return back();
-    }
-
     public function destroy($id)
     {
         $this->friendRequestService->destroy($id);
