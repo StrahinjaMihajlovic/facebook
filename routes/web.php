@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     // route for users stories
     Route::resource('story',StoryController::class);
     Route::post('story/delete/{id}',[StoryController::class,'destroy'])->name('storyDelete');
+    // routes for likes and dislikes
     Route::resource('like', \App\Http\Controllers\LikeController::class);
 });
 
