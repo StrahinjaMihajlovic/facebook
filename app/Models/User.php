@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -52,7 +53,14 @@ class User extends Authenticatable
 
     }
 
-    public function likes(){
+
+    public function likes()
+    {
         return $this->hasMany(Like::class, 'user_id', 'id');
+    }
+    public function ifSendRequest()
+    {
+        return $this->hasOne(FriendRequest::class,'receive_id')->where('send_id',Auth()->user()->id);
+
     }
 }

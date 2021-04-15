@@ -65,6 +65,7 @@
 
 <div class="container-fluid gedf-wrapper">
     <div class="row">
+        @include('components.left-side')
         @yield('content')
     </div>
 </div>
