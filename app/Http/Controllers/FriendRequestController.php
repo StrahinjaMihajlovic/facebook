@@ -25,7 +25,7 @@ class FriendRequestController extends Controller
 
     public function home()
     {
-        $notifications = FriendRequest::get();
+        $notifications = FriendRequest::where('receive_id',Auth()->user()->id)->get();
         return view('notification',compact('notifications'));
     }
 
@@ -33,20 +33,28 @@ class FriendRequestController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function send ($id)
+    public function request ($id)
     {
-        $this->friendRequestService->send($id);
+       $user = User::find($id);
 
-        return back();
+        if($user->ifReceiveRequest) {
+            $this->friendRequestService->accept($id);
+        } elseif($user->ifSendRequest) {
+           $this->friendRequestService->unsend($id);
+       } else{
+           $this->friendRequestService->send($id);
+       }
+
+       return back();
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function unsend ($id)
+    public function destroy($id)
     {
-        $this->friendRequestService->unsend($id);
+        $this->friendRequestService->destroy($id);
 
         return back();
     }
