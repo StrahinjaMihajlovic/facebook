@@ -32,10 +32,12 @@
                                             <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                                             <div class="chat_ib">
                                                 <h5>{{ $user->name }}<span class="chat_date">Dec 25</span></h5>
-                                                @if($user->lastConversation)
-                                                    <p>{{ $user->lastConversation->lastMessage->message }}</p>
+                                                @if($user->lastConversationSender)
+                                                    <p>{{ $user->lastConversationSender->lastMessage->message }}</p>
+                                                    @elseif($user->lastConversationRecipient)
+                                                    <p>{{ $user->lastConversationRecipient->lastMessage->message }}</p>
                                                     @else
-                                                <p>No messages</p>
+                                                    <p>No messages</p>
                                                 @endif
                                             </div>
                                         </div>
@@ -47,8 +49,8 @@
                     <div class="mesgs">
                         <div class="msg_history">
                                 @if(isset($conversation))
-                                    @if($conversation->conversation)
-                                            @foreach($conversation->conversation->messages as $message)
+                                    @if($conversation->senderConverastion)
+                                            @foreach($conversation->senderConverastion->messages as $message)
                                                 @if($message->user_from == Auth()->user()->id)
                                                     <div class="outgoing_msg">
                                                         <div class="sent_msg">
@@ -66,8 +68,26 @@
                                                         </div>
                                                     @endif
                                             @endforeach
-                                        @else
-                                    <h1>No messages with this person</h1>
+                                        @endif
+                                        @if($conversation->recipientConverastion)
+                                            @foreach($conversation->recipientConverastion->messages as $message)
+                                                @if($message->user_from == Auth()->user()->id)
+                                                    <div class="outgoing_msg">
+                                                        <div class="sent_msg">
+                                                            <p>{{ $message->message }}</p>
+                                                            <span class="time_date">{{ $message->created_at }}</span> </div>
+                                                    </div>
+                                                @else
+                                                    <div class="incoming_msg">
+                                                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                                        <div class="received_msg">
+                                                            <div class="received_withd_msg">
+                                                                <p>{{ $message->message }}</p>
+                                                                <span class="time_date"> {{ $message->created_at }}</span></div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
                                         @endif
                                 @else
                                     <h1>Chat with people</h1>

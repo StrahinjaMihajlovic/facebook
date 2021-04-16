@@ -6,8 +6,13 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\FriendRequestController;
-use App\Http\Controllers\MesssageController;
 
+
+use App\Http\Controllers\MesssageController;
+use App\Http\Controllers\CommentController;
+use App\Models\Post;
+use Illuminate\Http\Request;
+use App\Http\Requests\CommentRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +29,17 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => 'auth'], function () {
     // home page
     Route::resource('/', HomeController::class);
+
+    // lists all comments for the post
+    Route::get('/post/{post}/comments', function(Post $post, CommentController $controller){
+            return $controller->listForPost($post);
+    });
+    //stores new comments for the post
+    Route::post('/post/{post}/comments', function(Post $post, CommentController $controller, CommentRequest  $request){
+        return $controller->store($post, $request);
+    });
+
+
     Route::resource('/post', PostsController::class);
 
 

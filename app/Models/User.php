@@ -46,7 +46,7 @@ class User extends Authenticatable
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function posts(){
-        return $this->hasMany(Post::class, 'id', 'user_id');
+        return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
     public function firstStory()
@@ -96,12 +96,36 @@ class User extends Authenticatable
         return $this->hasOne(FriendRequest::class,'send_id')->where('receive_id',Auth()->user()->id)->where('accept',1);
     }
 
-    public function lastConversation()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function lastConversationSender()
     {
         return $this->hasOne(Conversation::class,'recipient_id')->where('sender_id',Auth()->user()->id);
     }
-    public function conversation()
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function lastConversationRecipient()
+    {
+        return $this->hasOne(Conversation::class,'sender_id')->where('recipient_id',Auth()->user()->id);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function senderConverastion()
     {
         return $this->hasOne(Conversation::class,'recipient_id')->where('sender_id',Auth()->user()->id);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function recipientConverastion()
+    {
+        return $this->hasOne(Conversation::class,'sender_id')->where('recipient_id',Auth()->user()->id);
+    }
+
 }
