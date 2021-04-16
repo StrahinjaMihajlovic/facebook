@@ -23,6 +23,7 @@ class CommentService
         return $this->jsonifyResponse(['model' => $comment, 'result' => $comment->save()]);
     }
 
+
     public function jsonifyResponse($toJsonify){
         return response(['comment' => $toJsonify['model'], 'result' => $toJsonify['result']]);
     }

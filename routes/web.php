@@ -30,10 +30,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/post/{post}/comments', function(Post $post, CommentController $controller){
             return $controller->listForPost($post);
     });
+
     //stores new comments for the post
     Route::post('/post/{post}/comments', function(Post $post, CommentController $controller, CommentRequest  $request){
         return $controller->store($post, $request);
     });
+
+    Route::resource('comment', CommentController::class);
 
 
     Route::resource('/post', PostsController::class);
