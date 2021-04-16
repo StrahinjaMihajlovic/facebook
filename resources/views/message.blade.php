@@ -8,7 +8,7 @@
     @parent
 @show
 @section('content')
-        <div class="container">
+        <div class="container" id="msg">
             <div class="messaging">
                 <div class="inbox_msg">
                     <div class="inbox_people">
@@ -47,34 +47,37 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="mesgs">
-                        <div class="msg_history">
-                           @if(empty($messages))
-                               @else
-                            @foreach($messages as $message)
-                                    @if($message->user_from == Auth()->user()->id)
-                                        <div class="outgoing_msg">
-                                            <div class="sent_msg">
-                                                <p>{{ $message->message }}</p>
-                                                <span class="time_date">{{ $message->created_at }}</span> </div>
-                                        </div>
-                                    @else
-                                        <div class="incoming_msg">
-                                            <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                                            <div class="received_msg">
-                                                <div class="received_withd_msg">
+                    <div class="mesgs"  id="mesgs">
+                        <div id="refresh">
+                            <div class="msg_history">
+                               @if(empty($messages))
+                                   @else
+                                @foreach($messages as $message)
+                                        @if($message->user_from == Auth()->user()->id)
+                                            <div class="outgoing_msg">
+                                                <div class="sent_msg">
                                                     <p>{{ $message->message }}</p>
-                                                    <span class="time_date"> {{ $message->created_at }}</span></div>
+                                                    <span class="time_date">{{ $message->created_at }}</span> </div>
                                             </div>
-                                        </div>
-                                    @endif
-                                @endforeach
-                               @endif
+                                        @else
+                                            <div class="incoming_msg">
+                                                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                                <div class="received_msg">
+                                                    <div class="received_withd_msg">
+                                                        <p>{{ $message->message }}</p>
+                                                        <span class="time_date"> {{ $message->created_at }}</span></div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                   @endif
+                            </div>
                         </div>
                         <div class="type_msg">
                             <div class="input_msg_write">
-                                <input type="text" class="write_msg" placeholder="Type a message" />
-                                <button class="msg_send_btn" type="button"><i class="fa fa-send" aria-hidden="true"></i></button>
+                                @csrf
+                                <input type="text" class="write_msg" id="textMessage" name="textMessage" placeholder="Type a message" />
+                                <button class="msg_send_btn" onClick="sendMessage('{{ route('message.send',['id'=> $user->id ]) }}', {{ $user->id }})" type="submit"><i class="fa fa-send" aria-hidden="true""></i></button>
                             </div>
                         </div>
                     </div>
@@ -82,4 +85,5 @@
 @endsection
 @section('js')
     @parent
+    <script src="{{ asset('js/message.js') }}"></script>
 @endsection

@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
     //route for messagin system
     Route::get('message',[MesssageController::class,'index'])->name('message.index');
     Route::get('message/{id}',[MesssageController::class,'show'])->name('message.show');
+    Route::post('message/{id}/send',[MesssageController::class,'send'])->name('message.send');
 });
 
 
