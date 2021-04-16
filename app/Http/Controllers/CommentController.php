@@ -25,4 +25,12 @@ class CommentController extends Controller
         return $comment->delete();
     }
 
+    public function edit(Comment $comment){
+        return view()->make('comments.edit_comment', compact('comment'));
+    }
+
+    public function update(CommentRequest $request, Comment $comment){
+        return $this->service->update($request, $comment);
+    }
+
 }
