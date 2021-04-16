@@ -17,17 +17,28 @@ class MesssageController extends Controller
      */
     public function index()
     {
-        $users = User::get()->whereNotIn('id',Auth()->user()->id);
+        //show only people which you have message
+        $users1 = User::with('senderConverastion')->has('senderConverastion')->get();
+        $users2 = User::with('recipientConverastion')->has('recipientConverastion')->get();
+
+        $users = $users1->merge($users2);
+
 
         return view('message',compact('users'));
     }
 
     public function show($id)
     {
-        $users = User::get()->whereNotIn('id',Auth()->user()->id);
+        //show only people which you have message
+        $users1 = User::with('senderConverastion')->has('senderConverastion')->get();
+        $users2 = User::with('recipientConverastion')->has('recipientConverastion')->get();
 
-        $conversation = User::find($id);
+        $users = $users1->merge($users2);
 
-        return view('message',compact('users','conversation'));
+        $userMessage = User::find($id);
+
+        $messages = $userMessage->senderConverastion->merge($userMessage->recipientConverastion)->sortBy('created_at');
+
+        return view('message',compact('users','messages'));
     }
 }

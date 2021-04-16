@@ -17,7 +17,6 @@ class CreateMessagesTable extends Migration
             $table->id();
             $table->foreignId('user_from')->references('id')->on('users');
             $table->foreignId('user_to')->references('id')->on('users');
-            $table->foreignId('conversation_id')->references('id')->on('conversations');
             $table->text('message');
             $table->text('status');
             $table->dateTime('created_at');

@@ -99,25 +99,9 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function lastConversationSender()
-    {
-        return $this->hasOne(Conversation::class,'recipient_id')->where('sender_id',Auth()->user()->id);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function lastConversationRecipient()
-    {
-        return $this->hasOne(Conversation::class,'sender_id')->where('recipient_id',Auth()->user()->id);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
     public function senderConverastion()
     {
-        return $this->hasOne(Conversation::class,'recipient_id')->where('sender_id',Auth()->user()->id);
+        return $this->hasMany(Message::class,'user_to')->where('user_from',Auth()->user()->id);
     }
 
     /**
@@ -125,7 +109,7 @@ class User extends Authenticatable
      */
     public function recipientConverastion()
     {
-        return $this->hasOne(Conversation::class,'sender_id')->where('recipient_id',Auth()->user()->id);
+        return $this->hasMany(Message::class,'user_from')->where('user_to',Auth()->user()->id);
     }
 
 }
