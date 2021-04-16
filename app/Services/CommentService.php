@@ -23,8 +23,8 @@ class CommentService
         return $this->jsonifyResponse(['model' => $comment, 'result' => $comment->save()]);
     }
 
-    public function update(CommentRequest $request, Comment $comment){
-        $comment->content = $request->input('content');
+    public function update($content, Comment $comment){
+        $comment->content = $content;
         return $comment->update();
     }
 
