@@ -117,6 +117,21 @@ function postComment(currObject, post){
     });
 }
 
+function deleteComment(url, currElement){
+    const csrf = $("input:hidden[name='_token']").attr('value');
+    $.ajax({
+        type:'DELETE',
+        url:url,
+        data:{_token:csrf}
+    }).done( function(data){
+        if(data == 1){
+            $(currElement).parentsUntil('.card-body').parent().remove();
+        }
+    }).fail(function(xhr){
+        console.log('fail');
+    });
+}
+
 
 function errorDisplay(xhr){
     if(xhr.status === 403){

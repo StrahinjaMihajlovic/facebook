@@ -8,7 +8,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
                 <a class="dropdown-item" href="#">Pin</a>
                 <a class="dropdown-item" href="#">Edit</a>
-                <a class="dropdown-item" href="#">Delete</a>
+                <p class="dropdown-item" onclick="deleteComment('{{ route('comment.destroy', ['comment' => $comment]) }}', this)">Delete</p>
             </div>
         </div>
         <p class="card-text">
