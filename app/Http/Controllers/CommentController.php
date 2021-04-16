@@ -30,7 +30,7 @@ class CommentController extends Controller
     }
 
     public function update(CommentRequest $request, Comment $comment){
-        return $this->service->update($request, $comment);
+        return $this->service->update($request->input('content'), $comment);
     }
 
 }
