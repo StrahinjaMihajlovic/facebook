@@ -62,6 +62,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('message',[MesssageController::class,'index'])->name('message.index');
     Route::get('message/{id}',[MesssageController::class,'show'])->name('message.show');
     Route::post('message/{id}/send',[MesssageController::class,'send'])->name('message.send');
+    Route::get('message/{id}/read',[MesssageController::class,'read'])->name('message.read');
+    Route::post('message/{id}/delete', [MesssageController::class,'destroy'])->name('message.destroy');
 });
 
 

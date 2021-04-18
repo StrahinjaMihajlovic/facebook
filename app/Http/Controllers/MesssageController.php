@@ -33,12 +33,13 @@ class MesssageController extends Controller
      */
     public function index()
     {
-        //show only people which you have message
-        $users1 = User::with('senderConverastion')->has('senderConverastion')->get();
-        $users2 = User::with('recipientConverastion')->has('recipientConverastion')->get();
+         // show only people which you have message
+         // $users1 = User::with('senderConverastion')->has('senderConverastion')->get();
+         // $users2 = User::with('recipientConverastion')->has('recipientConverastion')->get();
+         // $users = $users1->merge($users2);
 
-        $users = $users1->merge($users2);
-
+         // show all users from site
+         $users = User::get()->whereNotIn('id',Auth()->user()->id);
 
         return view('message',compact('users'));
     }
@@ -49,22 +50,33 @@ class MesssageController extends Controller
      */
     public function show($id)
     {
-        //show only people which you have message
-        $users1 = User::with('senderConverastion')->has('senderConverastion')->get();
-        $users2 = User::with('recipientConverastion')->has('recipientConverastion')->get();
+        return $this->messageService->show($id);
 
-        $users = $users1->merge($users2);
-
-        $userMessage = User::find($id);
-
-        $messages = $userMessage->senderConverastion->merge($userMessage->recipientConverastion)->sortBy('created_at');
-
-        return view('message',compact('users','messages'));
     }
 
+    /**
+     * @param MessageRequest $request
+     */
     public function send(MessageRequest  $request)
     {
         $this->messageService->send($request->textMessage,$request->user_to);
+    }
+
+    /**
+     * @param MessageRequest $request
+     */
+    public function read($id)
+    {
+       return $this->messageService->read($id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id)
+    {
+        return $this->messageService->destroy($id);
     }
 
 }

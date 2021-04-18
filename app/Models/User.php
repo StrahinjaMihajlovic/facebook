@@ -112,4 +112,12 @@ class User extends Authenticatable
         return $this->hasMany(Message::class,'user_from')->where('user_to',Auth()->user()->id);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function readMessage()
+    {
+        return $this->hasMany(Message::class,'user_from')->where('user_to',Auth()->user()->id)->where('status',0);
+    }
+
 }
