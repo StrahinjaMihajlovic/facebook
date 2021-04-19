@@ -32,7 +32,6 @@ class MessageService
         }
         return json_encode( $listMessage );
     }
-
     /**
      * @param $textMessage
      * @param $user_to
