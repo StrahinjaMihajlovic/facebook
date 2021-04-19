@@ -7,7 +7,7 @@
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
                 <a class="dropdown-item" href="#">Pin</a>
-                <a class="dropdown-item" href="#">Edit</a>
+                <a onclick="editElement('{{ route('comment.edit', ['comment' => $comment]) }}')" class="dropdown-item" href="#" data-toggle="modal" data-target="#post_modal">Edit</a>
                 <p class="dropdown-item" onclick="deleteComment('{{ route('comment.destroy', ['comment' => $comment]) }}', this)">Delete</p>
             </div>
         </div>
@@ -15,7 +15,24 @@
             <img style="float:left;padding-right: 4px;" class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
             <a href=""><span class=""> {{ $comment->user->name }}:</span></a>
             <span >{{ $comment->content }} </span>
-        <span style="color: #6c757d!important;font-size: 0.8rem;">About {{ floor( (time() - strtotime($comment->created_at)) / 60) }} minutes ago</span>
+        </p>
+        <p>
+
+            <style>
+                .time{
+                    color: #6c757d!important;
+                    font-size: 0.8rem;
+                }
+            </style>
+
+        <span class="time">Posted about {{ floor( (time() - strtotime($comment->created_at)) / 60) }} minutes ago</span>
+        </p>
+        <p>
+            @if($comment->created_at != $comment->updated_at)
+                <span class="time">
+                    Updated About {{ floor( (time() - strtotime($comment->updated_at)) / 60) }} minutes ago
+                </span>
+            @endif
         </p>
     </div>
 @endforeach
