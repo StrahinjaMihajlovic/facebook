@@ -1,0 +1,145 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel OpenApi Demo Documentation",
+        "description": "L5 Swagger OpenApi description",
+        "contact": {
+            "email": "admin@admin.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://facebook.local",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Create new user",
+                "operationId": "register",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "name": "Marko",
+                                "email": "marko@mail.com",
+                                "password": "1234ABCDEF",
+                                "password_confirmation": "1234ABCDEF"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "The given data was invalid.",
+                                    "errors": "All fields is required."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Data into fields is invalid."
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "New user successfully register",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "name": "Mike",
+                                    "email": "Mike@mail.com",
+                                    "password": "1234ABCD",
+                                    "password_confirmation": "1234ABCD",
+                                    "updated_at": "2020-02-12 14:59:40",
+                                    "created_at": "2020-02-12 14:59:40",
+                                    "id": "230",
+                                    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC93YXJlaG91c2UubG9jYWxcL2FwaVwvbG9naW4iLCJpYXQiOjE1ODE1MTU0NjUsImV4cCI6MTU4MTUyMjY2NSwibmJmIjoxNTgxNTE1NDY1LCJqdGkiOiI1Wng0dTdYSXJ6V0JxczBtIiwic3ViIjoyMjgsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.6j2uTU6JruQ6ClMq1g-ReEbKcNV_8xSTwUpJwNuuWKw"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/message/{id}": {
+            "get": {
+                "tags": [
+                    "Messages"
+                ],
+                "summary": "Get message information",
+                "description": "Returns message data",
+                "operationId": "getMessageById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Message id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succeseful Request"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Facebook",
+            "description": "API Endpoints of Projects"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
