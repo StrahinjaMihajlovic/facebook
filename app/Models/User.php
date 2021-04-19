@@ -95,4 +95,29 @@ class User extends Authenticatable
     {
         return $this->hasOne(FriendRequest::class,'send_id')->where('receive_id',Auth()->user()->id)->where('accept',1);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function senderConverastion()
+    {
+        return $this->hasMany(Message::class,'user_to')->where('user_from',Auth()->user()->id);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function recipientConverastion()
+    {
+        return $this->hasMany(Message::class,'user_from')->where('user_to',Auth()->user()->id);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function readMessage()
+    {
+        return $this->hasMany(Message::class,'user_from')->where('user_to',Auth()->user()->id)->where('status',0);
+    }
+
 }
