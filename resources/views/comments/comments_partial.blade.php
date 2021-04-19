@@ -1,3 +1,10 @@
+<style>
+    .time{
+        color: #6c757d!important;
+        font-size: 0.8rem;
+    }
+</style>
+
 <input type="text" placeholder="Type your comment"> <button  onclick="postComment(this, {{$post->id}})">Post comment</button>
 @foreach($post->comments as $comment)
     <div class="card-body">
@@ -11,6 +18,9 @@
                 <p class="dropdown-item" onclick="deleteComment('{{ route('comment.destroy', ['comment' => $comment]) }}', this)">Delete</p>
             </div>
         </div>
+
+
+
         <p class="card-text">
             <img style="float:left;padding-right: 4px;" class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
             <a href=""><span class=""> {{ $comment->user->name }}:</span></a>
@@ -18,15 +28,9 @@
         </p>
         <p>
 
-            <style>
-                .time{
-                    color: #6c757d!important;
-                    font-size: 0.8rem;
-                }
-            </style>
-
         <span class="time">Posted about {{ floor( (time() - strtotime($comment->created_at)) / 60) }} minutes ago</span>
         </p>
+
         <p>
             @if($comment->created_at != $comment->updated_at)
                 <span class="time">
@@ -34,5 +38,12 @@
                 </span>
             @endif
         </p>
+
+        <div class="subcomments pl-2">
+            @each('comments.subcomments', $comment->subcomments, 'subcomment')
+        </div>
+        <div class="answer">
+
+        </div>
     </div>
 @endforeach

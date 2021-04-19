@@ -17,7 +17,6 @@ class CommentController extends Controller
     }
 
     public function listForPost(Post $post){
-
         return \view()->make('comments/comments_partial', compact('post'));
     }
 
