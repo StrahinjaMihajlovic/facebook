@@ -5,7 +5,7 @@
     }
 </style>
 
-<input type="text" placeholder="Type your comment"> <button  onclick="postComment(this, {{$post->id}})">Post comment</button>
+<input type="text" placeholder="Type your comment"> <button class="btn btn-primary"  onclick="postComment(this, {{$post->id}})">Post comment</button>
 @foreach($post->comments as $comment)
     <div class="card-body">
         <div class="dropdown" style="float: right;">
@@ -43,7 +43,7 @@
             @each('comments.subcomments', $comment->subcomments, 'subcomment')
         </div>
         <div class="answer">
-
+            <input type="text" placeholder="Answer to this comment"> <button class="btn btn-primary"  onclick="postComment(this, {{$post->id}}, {{ $comment->id }})">Post comment</button>
         </div>
     </div>
 @endforeach

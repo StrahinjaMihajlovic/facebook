@@ -104,16 +104,16 @@ function showComments(currObject, post){
     })
 }
 
-function postComment(currObject, post){
+function postComment(currObject, post, comment){
     const csrf = $("input:hidden[name='_token']").attr('value');
     const content = $(currObject).prev().val();
     console.log(content);
     $.ajax({
         type:'POST',
         url: 'post/'+post+'/comments',
-        data:{content:content, _token:csrf}
+        data:{content:content, _token:csrf, comment:comment}
     }).done(function(data){
-        showComments($(currObject).parent().prev().children('a').first(), post);
+        showComments($(currObject).parentsUntil('.comments').prev().children('a').first(), post);
     });
 }
 
