@@ -62,44 +62,6 @@
                 </div>
             </div>
             <div class="col-md-6 mt-3">
-                <div class="card gedf-card">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Post</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-                                <div class="form-group">
-                                    <label class="sr-only" for="message">post</label>
-                                    <textarea class="form-control" id="message" rows="3" placeholder="What are you thinking?"></textarea>
-                                </div>
-                                <div id="message_status" class="h5">
-
-                                </div>
-                                <div class="custom-file" style="margin-bottom:1rem;">
-                                    <input type="file" name="picture" class="custom-file-input" id="picture" multiple accept="image/x-png, image/gif, image/jpeg, image/jpg">
-                                    <label class="custom-file-label" for="customFile">Upload image</label>
-                                </div>
-                                <div class="btn-toolbar justify-content-between">
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn btn-primary" onclick="storePost('{{ route('post.store') }}')")>share</button>
-                                        @csrf
-                                    </div>
-                                    <div class="btn-group">
-                                        <select class="form-control form-control-sm">
-                                            <option>Public</option>
-                                            <option>Private</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div id="post_wrap">
                     @include('posts/partial_render')
                 </div>
