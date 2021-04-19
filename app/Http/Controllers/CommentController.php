@@ -10,6 +10,7 @@ class CommentController extends Controller
 {
     public function __construct(CommentService $service){
         $this->service = $service;
+        $this->authorizeResource(Comment::class, 'comment');
     }
 
     public function store(Post $post, CommentRequest $request){
