@@ -13,11 +13,8 @@ class AddSubcomment extends Migration
      */
     public function up()
     {
-        Schema::create('subcomments', function(Blueprint $table){
-            $table->id();
-            $table->timestamps();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('comment_id')->references('id')->on('comments')->onDelete('cascade');
+        Schema::table('comments', function(Blueprint $table){
+            $table->foreignId('parent_id')->nullable()->references('id')->on('comments')->onDelete('cascade');
         });
     }
 
@@ -28,6 +25,8 @@ class AddSubcomment extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subcomments');
+        Schema::table('comments', function(Blueprint $table){
+            $table->dropConstrainedForeignId('parent_id');
+        });
     }
 }
