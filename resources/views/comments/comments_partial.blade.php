@@ -17,11 +17,19 @@
             <span >{{ $comment->content }} </span>
         </p>
         <p>
-        <span style="color: #6c757d!important;font-size: 0.8rem;">Posted about {{ floor( (time() - strtotime($comment->created_at)) / 60) }} minutes ago</span>
+
+            <style>
+                .time{
+                    color: #6c757d!important;
+                    font-size: 0.8rem;
+                }
+            </style>
+
+        <span class="time">Posted about {{ floor( (time() - strtotime($comment->created_at)) / 60) }} minutes ago</span>
         </p>
         <p>
             @if($comment->created_at != $comment->updated_at)
-                <span style="color: #6c757d!important;font-size: 0.8rem;">
+                <span class="time">
                     Updated About {{ floor( (time() - strtotime($comment->updated_at)) / 60) }} minutes ago
                 </span>
             @endif
