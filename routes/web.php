@@ -6,10 +6,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\FriendRequestController;
+
+
+use App\Http\Controllers\MesssageController;
 use App\Http\Controllers\CommentController;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
+use App\Http\Controllers\ProfileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +61,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('notification/accept/{id}',[FriendRequestController::class,'accept'])->name('accept');
     //route for delete friend
     Route::post('friend/delete/{id}',[FriendRequestController::class,'destroy'])->name('friend.destroy');
+
+    //route for messagin system
+    Route::get('message',[MesssageController::class,'index'])->name('message.index');
+    Route::get('message/{id}',[MesssageController::class,'show'])->name('message.show');
+    Route::post('message/{id}/send',[MesssageController::class,'send'])->name('message.send');
+    Route::get('message/{id}/read',[MesssageController::class,'read'])->name('message.read');
+    Route::post('message/{id}/delete', [MesssageController::class,'destroy'])->name('message.destroy');
+
+    //route for profile
+    Route::get('profile',[ProfileController::class,'index'])->name('profile.index');
 });
 
 
