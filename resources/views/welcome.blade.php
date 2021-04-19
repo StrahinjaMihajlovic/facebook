@@ -92,9 +92,9 @@
                                 @csrf
                             </div>
                             <div class="btn-group">
-                                <select class="form-control form-control-sm">
-                                    <option>Public</option>
-                                    <option>Private</option>
+                                <select id="is-public" class="form-control form-control-sm">
+                                    <option value=1 selected>Public</option>
+                                    <option value=0>Private</option>
                                 </select>
                             </div>
                         </div>

@@ -14,11 +14,10 @@ class CommentController extends Controller
     }
 
     public function store(Post $post, CommentRequest $request){
-        return $this->service->store($request, $post);
+        return $this->service->store($request->input('content'), $request->input('comment'), $post);
     }
 
     public function listForPost(Post $post){
-
         return \view()->make('comments/comments_partial', compact('post'));
     }
 
