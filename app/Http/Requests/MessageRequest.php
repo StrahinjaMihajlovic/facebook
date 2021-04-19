@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Comment;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CommentRequest extends FormRequest
+class MessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return !Auth()->guest();
+        return true;
     }
 
     /**
@@ -25,8 +24,7 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required',
+            'textMessage' => 'required',
         ];
     }
-
 }

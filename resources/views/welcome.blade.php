@@ -131,7 +131,8 @@
                 <ul class="list-group list-group-flush">
                     <div class="h6 text-muted">Notification</div>
                     <li class="list-group-item">
-                        You have {{ $notifications }} friend request
+                        You have {{ $countRequests }} friend request
+                        You have {{ $countMessages }} message
                     </li>
                     @foreach($users as $user)
                         <li class="list-group-item"><a href=""><img class="rounded-circle" width="45" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt=""> <span>{{ $user->name }}</span> </a>

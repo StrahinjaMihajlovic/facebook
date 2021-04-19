@@ -13,9 +13,10 @@
                 <i class="fa fa-ellipsis-h"></i>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                <a class="dropdown-item" href="#">Pin</a>
-                <a onclick="editElement('{{ route('comment.edit', ['comment' => $comment]) }}')" class="dropdown-item" href="#" data-toggle="modal" data-target="#post_modal">Edit</a>
-                <p class="dropdown-item" onclick="deleteComment('{{ route('comment.destroy', ['comment' => $comment]) }}', this)">Delete</p>
+                <a class="dropdown-item" href="#">like</a>
+                @can('update', $comment)<a onclick="editElement('{{ route('comment.edit', ['comment' => $comment]) }}')" class="dropdown-item" href="#" data-toggle="modal" data-target="#post_modal">Edit</a>@endcan
+                @can('delete', $comment)<p class="dropdown-item" onclick="deleteComment('{{ route('comment.destroy', ['comment' => $comment]) }}', this)">Delete</p>
+                @endcan
             </div>
         </div>
 
