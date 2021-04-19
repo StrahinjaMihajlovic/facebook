@@ -20,7 +20,7 @@
             </li>
             <li class="list-group-item"><a href="{{ asset('/') }}">Home</a></li>
             <li class="list-group-item"><a href="{{ route('message.index') }}">Messages</a></li>
-            <li class="list-group-item"><a href="">Profile</a></li>
+            <li class="list-group-item"><a href="{{route('profile.index')}}">Profile</a></li>
             <li class="list-group-item"><a href="{{ route('notification') }}">Notifications</a></li>
             <li class="list-group-item">
                 <form method="POST" action="{{ route('logout') }}">
