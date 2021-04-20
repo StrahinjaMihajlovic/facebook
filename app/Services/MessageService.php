@@ -30,7 +30,7 @@ class MessageService
                 'created_at' => $message->created_at
             );
         }
-        return json_encode( $listMessage );
+        return $listMessage;
     }
     /**
      * @param $textMessage

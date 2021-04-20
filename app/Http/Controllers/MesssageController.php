@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MessageRequest;
 use App\Models\Conversation;
 use App\Models\Message;
+use App\Models\Test;
 use App\Services\MessageService;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -31,6 +32,7 @@ class MesssageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
          // show only people which you have message
@@ -48,15 +50,52 @@ class MesssageController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+
+    /**
+     * @OA\Get(
+     *      path="/message/{id}",
+     *      operationId="getMessageById",
+     *      tags={"Messages"},
+     *      summary="Get message information",
+     *      description="Returns message data",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Message id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *           description="Succeseful Request"
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
+
     public function show($id)
     {
-        return $this->messageService->show($id);
-
+        return json_encode($this->messageService->show($id));
     }
 
     /**
      * @param MessageRequest $request
      */
+
     public function send(MessageRequest  $request)
     {
         $this->messageService->send($request->textMessage,$request->user_to);
@@ -74,6 +113,7 @@ class MesssageController extends Controller
      * @param $id
      * @return mixed
      */
+
     public function destroy($id)
     {
         return $this->messageService->destroy($id);
