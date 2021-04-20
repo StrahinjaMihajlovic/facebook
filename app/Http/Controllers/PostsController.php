@@ -9,11 +9,14 @@ use App\Models\Post;
 use App\Providers\RouteServiceProvider;
 use App\Services\PictureService;
 use App\Services\PostService;
+use App\Traits\PostTrait;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Gate;
 class PostsController extends Controller
 {
+
+    use PostTrait;
 
     public function __construct(PostService $postService, PictureService $pictureService)
     {
@@ -33,7 +36,7 @@ class PostsController extends Controller
         $post = $this->postService->store($request->input());
         $this->pictureService->store($picRequest, $post);
 
-        $posts = $this->postService->getAllPosts();
+        $posts = $this->postsAll();
 
         return \view()->make('posts/partial_render', compact('posts'));
     }
