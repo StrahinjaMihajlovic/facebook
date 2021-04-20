@@ -28,7 +28,7 @@ class PostTest extends TestCase
 
     }
 
-    private function authoriseUser($action, $model, $user){
+    private function authoriseUser($action){
         Gate::define($action, function (User $user, $model) {
             return $user->id == $model->user_id;
         });
@@ -74,6 +74,7 @@ class PostTest extends TestCase
     public function testUserCantSeePrivatePosts(){
         $this->testPostInsertion();
         $this->actingAs(User::factory()->create());
+
         $postService = new PostService();
         $this->assertCount(19, $postService->getAllPosts(),'not all tests posts have been created');
     }
@@ -85,7 +86,6 @@ class PostTest extends TestCase
         $post = Post::where(['user_id' => auth()->user()->id])->first();
 
         $this->authoriseUser('delete_post', $post, auth()->user());
-
         $response = $this->delete('post/' . $post->id);
         $response->assertStatus(200);
         $this->assertCount(0, Post::all(), 'Model is still in the database');
@@ -96,13 +96,13 @@ class PostTest extends TestCase
         $this->actingAs(User::factory()->create());
         $this->create_posts(1);
         $post = Post::all()->first();
-        $this->actingAs(User::factory()->create());
 
-        $this->authoriseUser('delete_post', $post, auth()->user());
+        $this->actingAs(User::factory()->create());
+        $this->authoriseUser('delete_post');
 
         $response = $this->delete('post/' . $post->id);
         $response->assertStatus(403);
-        $this->assertCount(1, Post::all(), 'Unathorised user deleted the post');
+        $this->assertCount(1, Post::all(), 'Unauthorised user deleted the post');
 
     }
 
