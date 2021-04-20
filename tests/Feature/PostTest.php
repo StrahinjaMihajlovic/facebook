@@ -7,6 +7,7 @@ use App\Services\PostService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\User;
@@ -25,6 +26,12 @@ class PostTest extends TestCase
     {
         parent::setUp();
 
+    }
+
+    private function authoriseUser($action, $model, $user){
+        Gate::define($action, function (User $user, $model) {
+            return $user->id == $model->user_id;
+        });
     }
 
     /**
@@ -67,9 +74,22 @@ class PostTest extends TestCase
     public function testUserCantSeePrivatePosts(){
         $this->testPostInsertion();
         $this->actingAs(User::factory()->create());
-        $request = $this->get('post');
         $postService = new PostService();
         $this->assertCount(19, $postService->getAllPosts(),'not all tests posts have been created');
+    }
+
+    public function testUserCanDeletePosts(){
+        $this->actingAs(User::factory()->create());
+
+        $this->create_posts(1);
+        $post = Post::where(['user_id' => auth()->user()->id])->first();
+
+        $this->authoriseUser('delete_post', $post, auth()->user());
+
+        $response = $this->delete('post/' . $post->id);
+        $response->assertStatus(200);
+        $this->assertCount(0, Post::all(), 'Model is still in the database');
+
     }
 
     /**
