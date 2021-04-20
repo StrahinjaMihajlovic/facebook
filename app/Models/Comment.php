@@ -4,17 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Traits\HasUserRelTrait;
 class Comment extends Model
 {
-    use HasFactory;
-
-    /** returns the owner of the comment
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
+    use HasFactory, HasUserRelTrait;
+    
 
     /** returns the post that was commented
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
