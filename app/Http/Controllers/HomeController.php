@@ -6,12 +6,17 @@ use App\Models\FriendRequest;
 use App\Models\Message;
 use App\Services\PostService;
 use App\Models\User;
+use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\PostTrait;
 
 class HomeController extends Controller
 {
+    use PostTrait;
+    use UserTrait;
+
     public function __construct(PostService $postService)
     {
         $this->postService = $postService;
@@ -22,9 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = $this->postService->getAllPosts();
+        $posts = $this->postsAll();
         $firstStory = User::with('firstStory')->has('firstStory')->get()->take(5)->sortByDesc('firstStory.id');
-        $users = User::get()->whereNotIn('id',Auth()->user()->id);
+        $users = $this->usersWithoutAuth();
         $countRequests = FriendRequest::where('receive_id',Auth()->user()->id)->where('accept',0)->count();
         $countMessages = Message::where('user_to',Auth()->user()->id)->where('status',0)->count();
 

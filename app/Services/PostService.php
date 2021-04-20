@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class PostService
 {
-    public function getAllPosts(){
-        return Post::with(['user', 'pictures'])->where('public', 1)->orWhere('user_id', \auth()->user()->id)->orderByDesc('created_at')->get();
-    }
-
     public function store($data){
         $post = new Post();
         $post->content = $data['message'];

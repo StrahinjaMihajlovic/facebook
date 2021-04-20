@@ -7,12 +7,16 @@ use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Test;
 use App\Services\MessageService;
+use App\Traits\UserTrait;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class MesssageController extends Controller
 {
+
+    use UserTrait;
+
     /**
      * @var
      */
@@ -41,7 +45,7 @@ class MesssageController extends Controller
          // $users = $users1->merge($users2);
 
          // show all users from site
-         $users = User::get()->whereNotIn('id',Auth()->user()->id);
+         $users = $this->usersWithoutAuth();
 
         return view('message',compact('users'));
     }
