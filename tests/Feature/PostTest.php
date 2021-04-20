@@ -92,6 +92,20 @@ class PostTest extends TestCase
 
     }
 
+    public function testUnathorisedUserCantDeletePost(){
+        $this->actingAs(User::factory()->create());
+        $this->create_posts(1);
+        $post = Post::all()->first();
+        $this->actingAs(User::factory()->create());
+
+        $this->authoriseUser('delete_post', $post, auth()->user());
+
+        $response = $this->delete('post/' . $post->id);
+        $response->assertStatus(403);
+        $this->assertCount(1, Post::all(), 'Unathorised user deleted the post');
+
+    }
+
     /**
      * Deletes all saves images
      */
