@@ -21,7 +21,7 @@ class Post extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments(){
-        return $this->hasMany(Comment::class, 'post_id', 'id');
+        return $this->hasMany(Comment::class, 'post_id', 'id')->where(['parent_id' => null]);
     }
 
     /** Returns all the comments the user has leaved on this post

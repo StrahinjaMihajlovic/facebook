@@ -19,7 +19,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
 
-                                <a class="dropdown-item" data-toggle="modal" data-target="#post_modal"  onclick="editPost('{{ route('post.edit', ['post' => $post->id]) }}')" >Edit</a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#post_modal"  onclick="editElement('{{ route('post.edit', ['post' => $post->id]) }}')" >Edit</a>
                                 <a class="dropdown-item" onclick="deletePost(this ,'{{ route('post.destroy', ['post' => $post])}} ')">Delete</a>
                             </div>
                         </div>

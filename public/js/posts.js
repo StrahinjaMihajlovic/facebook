@@ -1,10 +1,12 @@
 
 function storePost(route) {
     const csrf = $("input:hidden[name='_token']").attr('value');
+    const public = $("#is-public").val();
     var form = new FormData();
     const val = $("#message").val();
     form.append('message', val);
     form.append('_token', csrf);
+    form.append('public', public);
     if($('#picture')[0].files[0]){
         try {
             form.append('picture', $('#picture')[0].files[0]) //for now only one image can be sent
@@ -28,7 +30,7 @@ function storePost(route) {
 
 }
 
-function editPost(route){
+function editElement(route){
     $.get(route, function (data) {
         $('#post_modal').html(data);
     });
@@ -60,7 +62,7 @@ function updatePost(url){
         }, 1000);
 
     }).fail(function(xhr){
-            console.log(xhr.status);
+        $('#edit_message').parent().after('<p>Failed with: </p>' + xhr.status);
         });
 
 }
@@ -104,16 +106,16 @@ function showComments(currObject, post){
     })
 }
 
-function postComment(currObject, post){
+function postComment(currObject, post, comment){
     const csrf = $("input:hidden[name='_token']").attr('value');
     const content = $(currObject).prev().val();
     console.log(content);
     $.ajax({
         type:'POST',
         url: 'post/'+post+'/comments',
-        data:{content:content, _token:csrf}
+        data:{content:content, _token:csrf, comment:comment}
     }).done(function(data){
-        showComments($(currObject).parent().prev().children('a').first(), post);
+        showComments($(currObject).parentsUntil('.comments').prev().children('a').first(), post);
     });
 }
 
@@ -129,6 +131,30 @@ function deleteComment(url, currElement){
         }
     }).fail(function(xhr){
         console.log('fail');
+    });
+}
+
+function updateComment(url){
+    const csrf = $("input:hidden[name='_token']").attr('value');
+    var form = new FormData();
+    form.append('content', $("#edit_message").val());
+    form.append('_token', csrf);
+    form.append('_method', 'patch');
+
+    const message =  $("#edit_message").val();
+    $.ajax({
+        type: 'patch',
+        url: url,
+        data: {_token:csrf, content:message},
+
+    }).done(function(){
+        $('#edit_message').parent().after('<p>Successfuly updated</p>');
+        window.setTimeout(function(){
+            location.reload();
+        }, 1000);
+
+    }).fail(function(xhr){
+        $('#edit_message').parent().after('<p>failed with </p>' + xhr.status);
     });
 }
 

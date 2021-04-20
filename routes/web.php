@@ -11,6 +11,7 @@ use App\Http\Controllers\FriendRequestController;
 use App\Http\Controllers\MesssageController;
 use App\Http\Controllers\CommentController;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use App\Http\Controllers\ProfileController;
@@ -37,7 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     //stores new comments for the post
-    Route::post('/post/{post}/comments', function(Post $post, CommentController $controller, CommentRequest  $request){
+    Route::post('/post/{post}/comments/', function(Post $post, CommentController $controller, CommentRequest  $request){
+
         return $controller->store($post, $request);
     });
 

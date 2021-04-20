@@ -30,7 +30,8 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => 'required'
+            'message' => 'required',
+            'public' => 'boolean'
         ];
     }
 }

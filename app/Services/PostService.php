@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Storage;
 class PostService
 {
     public function getAllPosts(){
-        return Post::with(['user', 'pictures'])->orderByDesc('created_at')->get();
+        return Post::with(['user', 'pictures'])->where('public', 1)->orWhere('user_id', \auth()->user()->id)->orderByDesc('created_at')->get();
     }
 
-    public function store(PostRequest $request){
+    public function store($data){
         $post = new Post();
-        $post->content = $request->input('message');
+        $post->content = $data['message'];
+        $post->public = boolval($data['public']);
         $post->user_id = Auth::user()->id;
         $post->save();
         return $post;

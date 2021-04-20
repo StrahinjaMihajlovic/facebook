@@ -30,7 +30,7 @@ class PostsController extends Controller
      */
     public function store(PostRequest $request, PictureRequest $picRequest){
 
-        $post = $this->postService->store($request);
+        $post = $this->postService->store($request->input());
         $this->pictureService->store($picRequest, $post);
 
         $posts = $this->postService->getAllPosts();
