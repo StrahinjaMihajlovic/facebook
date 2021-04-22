@@ -11,6 +11,7 @@ use App\Models\User;
  */
 trait OwnedAuthTrait
 {
+    // used to dinamicaly set the models field that references to its owner
     protected $foreign_id = 'user_id';
     /**
      * Determine whether the user can delete the model.
@@ -20,14 +21,9 @@ trait OwnedAuthTrait
      * @return mixed
      */
 
-    protected function getForeignFieldName(){
-        return $this->foreign_id;
-    }
-
     public function delete(User $user,  $model)
     {
-        $foreign_field = $this->foreign_id;
-        return $user->id === $model->$foreign_field;
+        return $user->id === $model->{$this->foreign_id};
     }
 
     /**
@@ -39,8 +35,7 @@ trait OwnedAuthTrait
      */
     public function update(User $user, $model)
     {
-        $foreign_field = $this->foreign_id;
-        return $user->id === $model->$foreign_field;
+        return $user->id === $model->{$this->foreign_id};
     }
 
     /**
@@ -52,8 +47,7 @@ trait OwnedAuthTrait
      */
     public function forceDelete(User $user, $model)
     {
-        $foreign_field = $this->foreign_id;
-        return $user->id === $model->$foreign_field;
+        return $user->id === $model->{$this->foreign_id};
     }
 
     /**
@@ -65,8 +59,7 @@ trait OwnedAuthTrait
      */
     public function restore(User $user, $model)
     {
-        $foreign_field = $this->foreign_id;
-        return $user->id === $model->$foreign_field;
+        return $user->id === $model->{$this->foreign_id};
     }
 
     /**
