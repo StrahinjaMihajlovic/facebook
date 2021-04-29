@@ -3,7 +3,7 @@ version: '3'
 services:
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.0
+            context: ./resources/docker #./vendor/laravel/sail/runtimes/8.0
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
@@ -13,6 +13,13 @@ services:
         environment:
             WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
+            XDEBUG_ENABLED: 1
+            XDEBUG_REMOTE_AUTOSTART: 1
+            DEBUG_MAXNESTING_LEVEL: 1000
+            XDEBUG_REMOTE_CONNECT_BACK: 1
+            XDEBUG_REMOTE_HOST: localhost
+            XDEBUG_IDE_KEY: PHPSTORM
+            PHP_IDE_CONFIG: serverName=localhost
         volumes:
             - '.:/var/www/html'
         networks:
