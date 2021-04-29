@@ -1,10 +1,9 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Laravel OpenApi Demo Documentation",
-        "description": "L5 Swagger OpenApi description",
+        "title": "Facebook API documentation",
         "contact": {
-            "email": "admin@admin.com"
+            "email": "admin@mail.com"
         },
         "license": {
             "name": "Apache 2.0",
@@ -15,11 +14,11 @@
     "servers": [
         {
             "url": "http://facebook.local",
-            "description": "Demo API Server"
+            "description": "API documentation server"
         }
     ],
     "paths": {
-        "/api/register": {
+        "/register": {
             "post": {
                 "tags": [
                     "Auth"
@@ -42,15 +41,19 @@
                                     "password": {
                                         "type": "string",
                                         "format": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password"
                                     }
                                 },
                                 "type": "object"
                             },
                             "example": {
-                                "name": "Marko",
-                                "email": "marko@mail.com",
-                                "password": "1234ABCDEF",
-                                "password_confirmation": "1234ABCDEF"
+                                "name": "Example",
+                                "email": "example@gmail.com",
+                                "password": "ahasadkao1",
+                                "password_confirmation": "ahasadkao1"
                             }
                         }
                     }
@@ -82,19 +85,164 @@
                         "content": {
                             "application/json": {
                                 "example": {
-                                    "name": "Mike",
-                                    "email": "Mike@mail.com",
-                                    "password": "1234ABCD",
-                                    "password_confirmation": "1234ABCD",
+                                    "name": "Example",
+                                    "email": "example@gmail.com",
+                                    "password": "ahasadkao1",
+                                    "password_confirmation": "ahasadkao1",
                                     "updated_at": "2020-02-12 14:59:40",
                                     "created_at": "2020-02-12 14:59:40",
                                     "id": "230",
-                                    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC93YXJlaG91c2UubG9jYWxcL2FwaVwvbG9naW4iLCJpYXQiOjE1ODE1MTU0NjUsImV4cCI6MTU4MTUyMjY2NSwibmJmIjoxNTgxNTE1NDY1LCJqdGkiOiI1Wng0dTdYSXJ6V0JxczBtIiwic3ViIjoyMjgsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.6j2uTU6JruQ6ClMq1g-ReEbKcNV_8xSTwUpJwNuuWKw"
+                                    "token": "1Wd9HwTNVTccLYfvJ0gPXvghFZMIKqvBL1yEBqig"
                                 }
                             }
                         }
                     }
                 }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Log in the user",
+                "operationId": "authenticate",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "example@gmail.com",
+                                    "password": "ahasadkao1"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "The given data was invalid.",
+                                    "errors": {
+                                        "email": [
+                                            [
+                                                "The email field is required."
+                                            ]
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Invalid credentials"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Internal Server Error"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Success login",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU2MjQxMjcwOSwiZXhwIjoxNTYyNDE2MzA5LCJuYmYiOjE1NjI0MTI3MDksImp0aSI6Iks5Y1VrTXp4czhFaTZQUVAiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.PeZ-4rdDdAxWgQEcv0ypASQkq3vNOVvc75Gd3Kc4raE"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout the user",
+                "operationId": "logout",
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "The given data was invalid.",
+                                    "errors": {
+                                        "token": [
+                                            [
+                                                "The token field is required."
+                                            ]
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "User must first login."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Given token is invalid."
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Logout successfully",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "User has successfully logged out"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/message/{id}": {
@@ -129,14 +277,396 @@
                     "403": {
                         "description": "Forbidden"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/post": {
+            "post": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Create new post",
+                "operationId": "store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "message": {
+                                        "type": "string"
+                                    },
+                                    "public": {
+                                        "type": "integer"
+                                    },
+                                    "picture": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "storyImage": "example.jpg"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "The given data was invalid."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Data into fields is invalid."
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Not allowed",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "You are not allowed to delete this post"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "New user successfully register",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "lorepm ipsum",
+                                    "user_id": "13",
+                                    "updated_at": "2020-02-12 14:59:40",
+                                    "created_at": "2020-02-12 14:59:40",
+                                    "token": "1Wd9HwTNVTccLYfvJ0gPXvghFZMIKqvBL1yEBqig"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/post/{post}": {
+            "delete": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Delete post for a given ID",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "post",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 27
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "No results for given ID of Post."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Internal Server Error"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successfully deleted posts!",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Record successfully deleted."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Update post for a given ID",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "post",
+                        "in": "path",
+                        "description": "Post ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 27
+                    },
+                    {
+                        "name": "message",
+                        "in": "query",
+                        "description": "Description of post",
+                        "required": true,
+                        "example": "Lorem ipsum"
+                    }
+                ],
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "The given data was invalid.",
+                                    "errors": "All fields is required."
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "No query results for model [App\\Post]."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Data into fields is invalid."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Internal Server Error"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Post successfully updated",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "warehouse": {
+                                        "id": 27,
+                                        "message": "Lorem ipsum"
+                                    },
+                                    "message": "Record successfully updated!"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/story": {
+            "post": {
+                "tags": [
+                    "Story"
+                ],
+                "summary": "Create new story",
+                "operationId": "store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "storyImage": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "storyImage": "example.jpg"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "The given data was invalid."
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Data into fields is invalid."
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "New user successfully register",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "storyImage": "example.png",
+                                    "user_id": "13",
+                                    "updated_at": "2020-02-12 14:59:40",
+                                    "created_at": "2020-02-12 14:59:40",
+                                    "token": "1Wd9HwTNVTccLYfvJ0gPXvghFZMIKqvBL1yEBqig"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/story/delete/{id}": {
+            "post": {
+                "tags": [
+                    "Story"
+                ],
+                "summary": "Delete story for a given ID",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Story ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 27
+                    }
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "No results for given ID of Story."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Internal Server Error"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Successfully deleted posts!",
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "message": "Record successfully deleted."
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     },
     "tags": [
         {
-            "name": "Facebook",
-            "description": "API Endpoints of Projects"
+            "name": "Auth",
+            "description": "All about auth"
+        },
+        {
+            "name": "Post",
+            "description": "All about post"
+        },
+        {
+            "name": "Story",
+            "description": "All about stories"
+        },
+        {
+            "name": "Message",
+            "description": "All about messages"
         }
     ],
     "security": [
