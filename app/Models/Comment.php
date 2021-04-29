@@ -20,11 +20,11 @@ class Comment extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function post(){
-        return $this->belongsTo(Post::class, 'id', 'Post_id');
+        return $this->belongsTo(Post::class, 'post_id', 'id');
     }
 
     public function comment(){
-        return $this->belongsTo(static::class, 'id', 'parent_id');
+        return $this->belongsTo(static::class, 'parent_id', 'id');
     }
 
     public function subcomments(){

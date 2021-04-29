@@ -2,25 +2,27 @@
 
 namespace App\Notifications;
 
+use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserNotification extends Notification
+class CommentNotification extends Notification
 {
     use Queueable;
 
     public $message;
-    public $extras;
+    public $comment;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, Comment $comment)
     {
         $this->message = $message;
+        $this->comment = $comment;
     }
 
     /**
@@ -57,7 +59,9 @@ class UserNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => $this->message
+            'message' => $this->message,
+            'comment_id' => $this->comment->id,
+            'parent_id' => (int) $this->comment->parent_id
         ];
     }
 }

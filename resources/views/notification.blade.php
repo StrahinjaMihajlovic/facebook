@@ -13,6 +13,13 @@
                 </div>
             </div>
             <ul class="list-group list-group-flush">
+
+                @foreach(Auth::user()->notifications as $notification)
+                    <li class="list-group-item">
+                        <p> {{ $notification->data['message'] }}</p>
+                    </li>
+                @endforeach
+
                 @if($notifications->count() > 0)
                     @foreach($notifications as $notification)
                         <li class="list-group-item">

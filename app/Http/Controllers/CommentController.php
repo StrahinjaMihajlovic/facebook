@@ -22,7 +22,7 @@ class CommentController extends Controller
     }
 
     public function destroy(Comment $comment){
-        return $comment->delete();
+        return $this->service->destroy($comment);
     }
 
     public function edit(Comment $comment){
