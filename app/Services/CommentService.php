@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Notifications\CommentNotification;
 
 class CommentService
 {
@@ -24,7 +25,14 @@ class CommentService
         }
         $comment->user_id = Auth()->user()->id;
 
-        return $this->jsonifyResponse(['model' => $comment, 'result' => $comment->save()]);
+        $result = $comment->save();
+
+        if($result){
+            $message = 'The user ' . $comment->user->name . ' has commented on your post';
+            $comment->post->user->notify(new CommentNotification($message, $comment));
+        }
+
+        return $this->jsonifyResponse(['model' => $comment, 'result' => $result]);
     }
 
     public function update($content, Comment $comment){
@@ -34,5 +42,11 @@ class CommentService
 
     public function jsonifyResponse($toJsonify){
         return response(['comment' => $toJsonify['model'], 'result' => $toJsonify['result']]);
+    }
+
+    public function destroy(Comment  $comment){
+
+        $result = $comment->delete();
+        return $result;
     }
 }
