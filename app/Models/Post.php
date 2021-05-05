@@ -2,20 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\HasUserRelTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUserRelTrait;
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    function user(){
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
 
     /** returns all the comments on the post
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
