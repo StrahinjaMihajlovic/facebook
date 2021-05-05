@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Events\CommentDeleting;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
     use HasFactory;
+
+    protected $dispatchesEvents = [
+        'deleting' => CommentDeleting::class,
+    ];
 
     /** returns the owner of the comment
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
