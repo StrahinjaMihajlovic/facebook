@@ -60,8 +60,7 @@ class CommentNotification extends Notification
     {
         return [
             'message' => $this->message,
-            'comment_id' => $this->comment->id,
-            'parent_id' => (int) $this->comment->parent_id
+            'comment_id' => $this->comment->id
         ];
     }
 }
