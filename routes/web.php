@@ -15,6 +15,7 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +58,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('like', \App\Http\Controllers\LikeController::class);
 
     //View for notification and route for send/unsend friend request
-    Route::get('notification',[FriendRequestController::class,'home'])->name('notification');
+    Route::get('notification', function(FriendRequestController $friendController, NotificationController $notificationController){
+        $notificationController->mark_all_as_read();
+        return $friendController->home();
+    })->name('notification');
     Route::post('request/{id}', [FriendRequestController::class,'request'])->name("request");
     //route for accept request
     Route::post('notification/accept/{id}',[FriendRequestController::class,'accept'])->name('accept');
