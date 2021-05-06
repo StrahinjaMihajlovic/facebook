@@ -45,23 +45,8 @@ class CommentService
     }
 
     public function destroy(Comment  $comment){
-        $notifications = collect();
-        if(isset($comment->subcomments)){
-            foreach ($comment->subcomments as $subcomment){
-                $notifications->push($comment->post->user->notifications->where('data.comment_id', $subcomment->id)->first());
-            }
-        }
-
 
         $result = $comment->delete();
-
-        if($result){
-            $notification = $comment->post->user->notifications->where('data.comment_id', $comment->id)->first();
-            $notifications->map(function ($item){
-                $item->delete();
-            });
-            $notification->delete();
-        }
         return $result;
     }
 }
