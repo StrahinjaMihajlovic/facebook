@@ -2,23 +2,24 @@
 
 namespace App\Console\Commands;
 
+use App\Services\NotificationService;
 use Illuminate\Console\Command;
 
-class notifyUserForNotification extends Command
+class SendEmails extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'mail:send';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Sends emails to users about unread notifications';
 
     /**
      * Create a new command instance.
@@ -35,8 +36,8 @@ class notifyUserForNotification extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(NotificationService $service)
     {
-        return 0;
+        $service->sendEmailsForUnreadNotifications();
     }
 }

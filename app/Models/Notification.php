@@ -10,4 +10,8 @@ class Notification extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    protected $casts = [
+        'data' => 'array',
+    ];
 }

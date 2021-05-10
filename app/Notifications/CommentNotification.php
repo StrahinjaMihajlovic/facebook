@@ -14,15 +14,17 @@ class CommentNotification extends Notification
 
     public $message;
     public $comment;
+    public $withEmail;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($message, Comment $comment)
+    public function __construct($message, Comment $comment, $withEmail = false)
     {
         $this->message = $message;
         $this->comment = $comment;
+        $this->withEmail = $withEmail;
     }
 
     /**
@@ -33,7 +35,7 @@ class CommentNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return $this->withEmail ? ['mail'] : ['database'];
     }
 
     /**
@@ -45,9 +47,10 @@ class CommentNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->greeting('Hi ' . $notifiable->name)
+                    ->line('You have an unread notification:')
+                    ->line($this->message)
+                    ->action('View your notifications', url('/notification'));
     }
 
     /**
