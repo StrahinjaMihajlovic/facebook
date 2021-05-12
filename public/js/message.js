@@ -16,6 +16,15 @@ function sendMessage(url,id,auth)
 }
 
 function showMessages(id,auth,url){
+    if($("#pdfButton").length == 0) {
+        var pdfButton = $(document.createElement('a'));
+        pdfButton.addClass('btn btn-success float-right');
+        pdfButton.attr('id', 'pdfButton')
+        pdfButton.append('<i class="far fa-file-pdf"></i>');
+        pdfButton.append(document.createElement('i'));
+    }
+    pdfButton.attr('href', 'message/pdf/' + id);
+    $('#msgBtn').append(pdfButton);
     $.ajax({
         url: 'message/'+id,
         type: 'get',

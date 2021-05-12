@@ -50,7 +50,9 @@
                             <div class="input_msg_write">
                                 @csrf
                                 <input type="text" class="write_msg" id="textMessage" name="textMessage" placeholder="Type a message" />
-                                <div id="msgBtn"></div>
+                                <div id="msgBtn">
+
+                                </div>
                             </div>
                         </div>
                     </div>
