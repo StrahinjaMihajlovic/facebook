@@ -87,4 +87,8 @@ class MesssageController extends Controller
         return $this->messageService->destroy($id);
     }
 
+    public function pdfOfConversation(User $user){
+        return $this->messageService->makePdfOfConversation($user);
+    }
+
 }
