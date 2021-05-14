@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CommentRequest;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SupportConstroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +80,8 @@ Route::group(['middleware' => 'auth'], function () {
     //route for profile
     Route::get('profile',[ProfileController::class,'index'])->name('profile.index');
 
-
+    Route::get('support',[SupportConstroller::class,'index'])->name('support');
+    Route::post('support',[SupportConstroller::class,'store'])->name('support.send');
 });
 
 
