@@ -9,6 +9,27 @@
 <div class="modal fade" id='post_modal' tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 </div>
 
+@if(isset($messages))
+
+<div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
+    @foreach($messages as $message)
+    <div id="liveToast" class="toast show mt-3" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <div class="toast-header">
+            <img src="https://picsum.photos/50/50" class="rounded mr-2" alt="...">
+            <strong class="mr-auto"> A message from our God above </strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close" onclick="$(this).closest('.toast').empty()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body text-center">
+           {{ $message }}
+        </div>
+    </div>
+    @endforeach
+</div>
+
+@endif
+
 @section('content')
     <div class="col-md-6 gedf-main">
         <!--- \\\\\\\Post-->

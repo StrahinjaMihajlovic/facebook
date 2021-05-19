@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "barryvdh/laravel-dompdf": "^0.9.0",
+        "bschmitt/laravel-amqp": "^2.0",
         "beyondcode/laravel-websockets": "^1.12",
         "darkaonline/l5-swagger": "^8.0",
         "fideloper/proxy": "^4.4",

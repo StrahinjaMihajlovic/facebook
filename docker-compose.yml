@@ -69,6 +69,17 @@ services:
             - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
+    rabbitmq:
+      image: rabbitmq:3-management-alpine
+      container_name: 'rabbitmq'
+      ports:
+        - '${AMQP_PORT}:${AMQP_PORT}'
+        - 15672:15672
+      volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+      networks:
+        - sail
     selenium:
        image: 'selenium/standalone-chrome'
        volumes:
