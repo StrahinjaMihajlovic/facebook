@@ -151,18 +151,15 @@
             <div class="card-body">
                 <ul class="list-group list-group-flush">
                     <div class="h6 text-muted">Notification</div>
+                    <li>
+                        <input placeholder="search users" id="search_users" oninput="searchUsers()">
+                        <div id="users_search_wrap"></div>
+                    </li>
                     <li class="list-group-item">
                         You have {{ $countRequests }} friend request
                         You have {{ $countMessages }} message
                     </li>
-                    @foreach($users as $user)
-                        <li class="list-group-item"><a href=""><img class="rounded-circle" width="45" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt=""> <span>{{ $user->name }}</span> </a>
-                        <form style="float: right;padding: 8px;" action="{{ route('request',['id'=>$user->id]) }}" method="POST">
-                            @csrf
-                            <button style="border: none;background: #007bff;color: white;">@if($user->ifFriendRequestAccept || $user->ifAuthRequestAccept) Friend @elseif($user->ifSendRequest) Unsend request @elseif($user->ifReceiveRequest) Accept friend @else Send request @endif</button>
-                        </form>
-                        </li>
-                    @endforeach
+
                 </ul>
                 </ul>
             </div>
@@ -174,4 +171,61 @@
     <script src="{{ asset('js/story.js') }}"></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/posts.js') }}"></script>
+    <script>
+        function searchUsers()
+        {
+            $.ajax({
+                method: 'GET',
+                url: '{{ route('users.search') }}?query=' + $('#search_users').val()
+            }).done(function (data)
+            {
+                console.log(data);
+                $('#users_search_wrap').empty() //first empties the list and the append found users
+                        .append(document.createElement('ul'));
+
+                for(var user in data)
+                {
+                    var userId = data[user].id;
+
+                    $('#users_search_wrap > ul')
+                        .append($(document.createElement('li')).attr('id', 'user_'+ userId )
+                            .addClass('search_user')
+                            .text(data[user].name));
+
+                    $('#user_' + userId).append($(document.createElement('form'))
+                        .addClass('search_form')
+                        .attr('action', '{{ url('request') }}/' + userId)
+                        .attr('method', 'POST')
+                        .append('<button class="search_button"></button>')
+                        .append(' @csrf '));
+
+                    if(data[user].if_send_request){
+                        $('#user_' + userId).find('button')
+                            .text('unsend request')
+                    } else {
+                        $('#user_' + userId).find('button').text('send request');
+                    }
+                }
+
+            }).fail(function()
+            {
+                $('#users_search_wrap').empty();
+            });
+        }
+    </script>
+    <style>
+        .search_form{
+            display: inline-block;
+            position:absolute;
+            left:60%;
+        }
+        .search_button{
+            border: none;
+            background: #007bff;
+            color: white;
+        }
+        .search_user{
+            padding: .75rem 1.25rem;
+        }
+    </style>
 @endsection

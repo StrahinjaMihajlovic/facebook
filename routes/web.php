@@ -80,8 +80,12 @@ Route::group(['middleware' => 'auth'], function () {
     //route for profile
     Route::get('profile',[ProfileController::class,'index'])->name('profile.index');
 
+    //routes for a search function
+    Route::get('users/search', [\App\Http\Controllers\SearchController::class, 'autofillUsers'])->name('users.search');
+
     Route::get('support',[SupportConstroller::class,'index'])->name('support');
     Route::post('support',[SupportConstroller::class,'store'])->name('support.send');
+
 });
 
 

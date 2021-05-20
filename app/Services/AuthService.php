@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\SearchController;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -24,6 +25,10 @@ class AuthService extends Controller
             'email' => $email,
             'password' => Hash::make($password),
         ]));
+
+        //sets the user in the elasticsearch engine
+        $searchService= new SearchService();
+        $searchService->indexUser($user);
 
         event(new Registered($user));
     }
