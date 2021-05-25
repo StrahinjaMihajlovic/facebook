@@ -30,6 +30,9 @@ class AuthService extends Controller
         $searchService= new SearchService();
         $searchService->indexUser($user);
 
+        $graphService = new GraphService();
+        $graphService->insertUser($user);
+
         event(new Registered($user));
     }
 }

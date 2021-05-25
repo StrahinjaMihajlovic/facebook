@@ -104,6 +104,26 @@ services:
         - 127.0.0.1:9200:9200
       networks:
         - sail
+    neo4j:
+      image: neo4j:3.5
+      environment:
+        - dbms.logs.http.enabled=true
+        - dbms.logs.query.parameter_logging_enabled=true
+        - dbms.logs.query.time_logging_enabled=true
+        - dbms.logs.query.allocation_logging_enabled=true
+        - dbms.logs.query.page_logging_enabled=true
+      restart: unless-stopped
+      ports:
+        - 7474:7474
+        - 7687:7687
+      volumes:
+        - ~/.docker-conf/neo4j/conf:/conf
+        - ~/.docker-conf/neo4j/data:/data
+        - ~/.docker-conf/neo4j/import:/import
+        - ~/.docker-conf/neo4j/logs:/logs
+        - ~/.docker-conf/neo4j/plugins:/plugins
+      networks:
+        - sail
 networks:
     sail:
         driver: bridge
