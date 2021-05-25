@@ -91,6 +91,15 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'neo4j' => [
+            'name' => 'neo4j',
+            'driver' => 'neo4j',
+            'host'   => env('NEODB_HOST', 'localhost'),
+            'port'   => env('NEODB_PORT', '7474'),
+            'username' => env('NEODB_USERNAME', "neo4j"),
+            'password' => env('NEODB_PASSWORD', "neo4j")
+        ]
+
     ],
 
     /*
