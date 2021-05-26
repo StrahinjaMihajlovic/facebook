@@ -161,6 +161,25 @@
                     </li>
 
                 </ul>
+                <ul class="list-group list-group-flush">
+                    <h3>
+                        Friend recommendation
+                    </h3>
+                    @foreach($graphUsers as $graphUser)
+                    <li>
+                        {{ $graphUser[0]->name }}
+                        <form method="POST" action="{{ route('request', $graphUser[0]->id) }}">
+                            <button class="search_button">
+                                @if($graphUser[0]->ifSendRequest !== null)
+                                    Cancel request
+                                @else
+                                    Send request
+                                @endif </button>
+                            @csrf
+                        </form>
+                    </li>
+                    @endforeach
+                </ul>
                 </ul>
             </div>
         </div>

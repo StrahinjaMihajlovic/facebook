@@ -5,11 +5,8 @@ namespace App\Services;
 use App\Http\Requests\LikeRequest;
 use App\Models\Like;
 use App\Models\Post;
-use http\Env\Response;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class LikeService
 {
@@ -31,8 +28,8 @@ class LikeService
             $like = new Like();
             $like->user_id = Auth::user()->id;
             $like->post_id = $request->post;
-
-            return $like->save();
+            $test = Post::find($like->post_id);
+            return $like->logInteractionAndSave([Post::find($like->post_id)->user]);
     }
 
     /** creates the json response for front - end like/dislike implementation

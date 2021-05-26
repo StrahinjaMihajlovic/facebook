@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FriendRequest;
 use App\Models\Message;
+use App\Services\GraphService;
 use App\Services\PostService;
 use App\Models\User;
 use App\Traits\UserTrait;
@@ -17,10 +18,11 @@ class HomeController extends Controller
     use PostTrait;
     use UserTrait;
 
-    public function __construct(PostService $postService, \App\Services\NotificationService $notService)
+    public function __construct(PostService $postService, \App\Services\NotificationService $notService, GraphService $graphService)
     {
         $this->postService = $postService;
         $this->notificationService = $notService;
+        $this->graphService = $graphService;
     }
 
     /**
@@ -33,9 +35,10 @@ class HomeController extends Controller
         $users = $this->usersWithoutAuth();
         $countRequests = FriendRequest::where('receive_id',Auth()->user()->id)->where('accept',0)->count();
         $countMessages = Message::where('user_to',Auth()->user()->id)->where('status',0)->count();
-        
+        $graphUsers = $this->graphService->returnRecommendationList();
+
         $messages = $this->notificationService->getMajorNotifications();
-        return view ('welcome',compact('firstStory','users','countRequests','countMessages','posts', 'messages'));
+        return view ('welcome',compact('firstStory','users','countRequests','countMessages','posts', 'messages', 'graphUsers'));
 
     }
 

@@ -19,13 +19,15 @@ class CommentService
         $comment = new Comment();
         $comment->content = $content;
         $comment->post_id = $post->id;
-
-        if(Comment::find($parent_id)){
-            $comment->parent_id = $parent_id;
-        }
         $comment->user_id = Auth()->user()->id;
 
-        $result = $comment->save();
+        $users = [Post::find($comment->post_id)->user];
+        if(Comment::find($parent_id)){
+            $comment->parent_id = $parent_id;
+            array_push($users, Comment::find($parent_id)->first()->user);
+        }
+
+        $result = $comment->logInteractionAndSave($users);
 
         if($result){
             $message = 'The user ' . $comment->user->name . ' has commented on your post';
