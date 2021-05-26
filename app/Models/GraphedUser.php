@@ -11,6 +11,7 @@ class GraphedUser extends Model
     protected $connection = 'neo4j';
     protected $label = 'User';
     protected $table = 'User';
+    public $timestamps = true;
     protected $fillable = [
         'id',
         'name',

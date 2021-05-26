@@ -10,6 +10,7 @@ class Interaction extends Model
 {
     protected $connection = 'neo4j';
     protected $label = 'Interaction';
+    public $timestamps = true;
     protected $fillable = [
         'type',
         'weight',
@@ -20,7 +21,7 @@ class Interaction extends Model
      */
     public function subject()
     {
-        return $this->belongsTo('User', "DID");
+        return $this->belongsTo(GraphedUser::class, "DID");
     }
 
     /** Return an user on which the interaction was done
@@ -28,6 +29,6 @@ class Interaction extends Model
      */
     public function objects()
     {
-        return $this->hasMany('User', "DONE_TO");
+        return $this->hasMany(GraphedUser::class, "DONE_TO");
     }
 }
